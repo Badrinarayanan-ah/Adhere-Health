@@ -1,0 +1,1359 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/20/2019 9:55:24 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="P10PMW90PRDP03"
+  DTS:CreatorName="PHARMMD\mike.rezvani"
+  DTS:DTSID="{2B916062-0122-49CF-9607-934BF576B3B9}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3026.27"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{53193FD0-EC70-4050-8B61-A47F5D22553B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[import_logo_flat_file]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{4F5692F7-F200-4A1F-946F-F3D604E9961D}"
+      DTS:ObjectName="import_logo_flat_file">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="Z:\artifacts\prod\com.pharmmd.OperationsSupport.LogoImport\LogoImportUpdate\newupdatelogopackage\ListImage.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="200"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Column 0"
+              DTS:DTSID="{FA773164-3E5C-4278-9946-C91609BDBAB4}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[postgres_dev]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{D94AFC71-17AE-4FFE-8618-81A2E7262A51}"
+      DTS:ObjectName="postgres_dev">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=db1.pmd_dev.pharmmd.local;User ID=mrezvani;Initial Catalog=pharmmd_pmd_dev;Provider=PGNP.1;Persist Security Info=True;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA65qMm2D5QU22/CFIuEuz/AAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAACDXtaudmH4Ht6NdcRHpTVAAAAAASAAACgAAAAEAAAACxp1BylRLaJcEKoGeRoqm4YAAAAWXu8WPZi3wgT0aEhNC6mf8eCp5fsGNeaFAAAADl4ycHw+2wyvakQkLks9kZgXrhq</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[postgres_prod]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F3050A6F-A5EB-4714-970D-86460303791E}"
+      DTS:ObjectName="postgres_prod">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=db1.pmd_prod.pharmmd.local;User ID=mrezvani;Initial Catalog=pharmmd_pmd_prod;Provider=PGNP.1;Persist Security Info=True;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA65qMm2D5QU22/CFIuEuz/AAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAB2Q+zzyVvYXLC2//XiBdwUAAAAAASAAACgAAAAEAAAAJ8ZX5MnjiVSng8BOy/4rOYYAAAAH2fP1Sl/d6TAU8QW+wbk/Hz7/dKW7UO3FAAAAOBIQVex43wC//L6F3OUT/EmtGhs</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0B16AD48-833A-4851-ABAC-66F5F808F024}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="IO_Base64">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9DB305CF-07E5-46B1-9ED7-7082767FC369}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="IO_logo">
+      <DTS:VariableValue
+        DTS:DataType="8">hs_leon_logo.png</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DAE326C5-1F91-43E9-97A0-6F1D09AC39E8}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="IO_OrganizationID">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{60F4C4C7-ED0D-4720-8D40-00E5D06C5E16}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="IO_ServerName">
+      <DTS:VariableValue
+        DTS:DataType="8">hs_Dev.pg.pharmmd.com</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{56E26104-0B28-452F-A25D-E57B9DF38899}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="I_ImportTable">
+      <DTS:VariableValue
+        DTS:DataType="8">public.x_logo_import</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5EC84643-DB3B-4325-8E62-327962A9AF35}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="I_IntialCataloge">
+      <DTS:VariableValue
+        DTS:DataType="8">pharmmd_hs_dev</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{912469C3-EE24-4276-9F6E-6544BCFCE420}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="I_TruncateCommand">
+      <DTS:VariableValue
+        DTS:DataType="8">truncate table public.x_logo_import</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{833A7EED-F6DD-48B8-BAEB-8A385EFBE16E}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="I_UpdateCommand">
+      <DTS:VariableValue
+        DTS:DataType="8">update x_cms_cmr_org_extension set logo_binary=x_logo_import."Image_Binary"       from x_logo_import   where x_cms_cmr_org_extension.organization_id in (56)  and logo_name = 'hs_leon_logo.png';</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BA3B3EFC-2419-43B2-B1C6-5ECC48A28054}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="O_OutputPath">
+      <DTS:VariableValue
+        DTS:DataType="8">\\p10pmw90prdp03\users\Mike.rezvani\temp\</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Download_logo"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:Disabled="True"
+      DTS:DTSID="{D2375246-BB67-446E-A97C-8A06D1BA0283}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Download_logo">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Download_logo\export_logo"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{E704FF04-1773-4C0F-857B-2EC41EB7F360}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="export_logo"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Download_logo\export_logo\Derived Column"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Derived Column"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Download_logo\export_logo\Derived Column.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Download_logo\export_logo\Derived Column.Inputs[Derived Column Input].Columns[logo_name]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="logo_name"
+                          lineageId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output].Columns[logo_name]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Download_logo\export_logo\Derived Column.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Download_logo\export_logo\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Download_logo\export_logo\Derived Column.Outputs[Derived Column Output].Columns[OutPutPath]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="296"
+                          lineageId="Package\Download_logo\export_logo\Derived Column.Outputs[Derived Column Output].Columns[OutPutPath]"
+                          name="OutPutPath"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">@[User::O_OutputPath] + #{Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output].Columns[logo_name]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">@[User::O_OutputPath] + logo_name</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Download_logo\export_logo\Derived Column.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Download_logo\export_logo\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Download_logo\export_logo\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Download_logo\export_logo\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Download_logo\export_logo\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Download_logo\export_logo\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Download_logo\export_logo\Export Column"
+                  componentClassID="Microsoft.Extractor"
+                  contactInfo="Export Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Reads data from a data flow and insert it into a file. For example, create image files based on a database column that contains photographs."
+                  name="Export Column"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Download_logo\export_logo\Export Column.Inputs[Export Column Input]"
+                      hasSideEffects="true"
+                      name="Export Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Download_logo\export_logo\Export Column.Inputs[Export Column Input].Columns[OutPutPath]"
+                          cachedDataType="wstr"
+                          cachedLength="296"
+                          cachedName="OutPutPath"
+                          errorOrTruncationOperation="File Open"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Download_logo\export_logo\Derived Column.Outputs[Derived Column Output].Columns[OutPutPath]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the ID of the input column that contains the file data."
+                              name="FileDataColumnID">#{Package\Download_logo\export_logo\Export Column.Inputs[Export Column Input].Columns[logo_binary]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether to write a byte-order marker (BOM) to the file."
+                              name="WriteBOM">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether to force truncation of an existing file."
+                              name="ForceTruncate">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether to append data to an existing file."
+                              name="AllowAppend">false</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Download_logo\export_logo\Export Column.Inputs[Export Column Input].Columns[logo_binary]"
+                          cachedDataType="image"
+                          cachedName="logo_binary"
+                          errorOrTruncationOperation="File Write"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output].Columns[logo_binary]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the ID of the input column that contains the file data."
+                              name="FileDataColumnID">#{Package\Download_logo\export_logo\0:invalid}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether to write a byte-order marker (BOM) to the file."
+                              name="WriteBOM">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether to force truncation of an existing file."
+                              name="ForceTruncate">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether to append data to an existing file."
+                              name="AllowAppend">true</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Download_logo\export_logo\Export Column.Outputs[Export Column Output]"
+                      exclusionGroup="1"
+                      name="Export Column Output"
+                      synchronousInputId="Package\Download_logo\export_logo\Export Column.Inputs[Export Column Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Download_logo\export_logo\Export Column.Outputs[Export Column Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Export Column Error Output"
+                      synchronousInputId="Package\Download_logo\export_logo\Export Column.Inputs[Export Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Download_logo\export_logo\Export Column.Outputs[Export Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Download_logo\export_logo\Export Column.Outputs[Export Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Download_logo\export_logo\Export Column.Outputs[Export Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Download_logo\export_logo\Export Column.Outputs[Export Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Download_logo\export_logo\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select distinct logo_binary,logo_name from x_cms_cmr_org_extension where organization_id=30</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Download_logo\export_logo\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[postgres_dev]"
+                      connectionManagerRefId="Package.ConnectionManagers[postgres_dev]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output].Columns[logo_binary]"
+                          dataType="image"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[logo_binary]"
+                          lineageId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output].Columns[logo_binary]"
+                          name="logo_binary"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output].Columns[logo_name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[logo_name]"
+                          length="255"
+                          lineageId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output].Columns[logo_name]"
+                          name="logo_name"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[logo_binary]"
+                          dataType="image"
+                          name="logo_binary" />
+                        <externalMetadataColumn
+                          refId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[logo_name]"
+                          dataType="wstr"
+                          length="255"
+                          name="logo_name" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[logo_binary]"
+                          dataType="image"
+                          lineageId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[logo_binary]"
+                          name="logo_binary" />
+                        <outputColumn
+                          refId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[logo_name]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[logo_name]"
+                          name="logo_name" />
+                        <outputColumn
+                          refId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Download_logo\export_logo.Paths[Derived Column Output]"
+                  endId="Package\Download_logo\export_logo\Export Column.Inputs[Export Column Input]"
+                  name="Derived Column Output"
+                  startId="Package\Download_logo\export_logo\Derived Column.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Download_logo\export_logo.Paths[OLE DB Source Output]"
+                  endId="Package\Download_logo\export_logo\Derived Column.Inputs[Derived Column Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Download_logo\export_logo\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Update_Logo"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{B375F414-48FE-4440-A52D-3F05B71DCC05}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update_Logo">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Update_Logo\Execute SQL Task"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{691FA5D6-1398-41DD-B13D-E4484CDF013D}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{D94AFC71-17AE-4FFE-8618-81A2E7262A51}"
+              SQLTask:SqlStatementSource="update x_cms_cmr_org_extension set logo_binary=x_logo_import.&quot;Image_Binary&quot;&#xA;&#xA;from x_logo_import &#xA;where x_cms_cmr_org_extension.organization_id in (54,54001);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Update_Logo\import_logo"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{AF7B95FA-EDD6-4E31-85E3-3992AD11410D}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="import_logo"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Update_Logo\import_logo\Data Conversion"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="Data Conversion"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Update_Logo\import_logo\Data Conversion.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Update_Logo\import_logo\Data Conversion.Inputs[Data Conversion Input].Columns[Column 0]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="200"
+                          cachedName="Column 0"
+                          lineageId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Output].Columns[Column 0]" />
+                        <inputColumn
+                          refId="Package\Update_Logo\import_logo\Data Conversion.Inputs[Data Conversion Input].Columns[image]"
+                          cachedDataType="image"
+                          cachedName="image"
+                          lineageId="Package\Update_Logo\import_logo\Import Column.Outputs[Import Column Output].Columns[image]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\Update_Logo\import_logo\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Column 0]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="255"
+                          lineageId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Column 0]"
+                          name="Copy of Column 0"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Output].Columns[Column 0]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of image]"
+                          dataType="image"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of image]"
+                          name="Copy of image"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\Update_Logo\import_logo\Import Column.Outputs[Import Column Output].Columns[image]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\Update_Logo\import_logo\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Update_Logo\import_logo\Flat File Source"
+                  componentClassID="Microsoft.FlatFileSource"
+                  contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Flat File Source"
+                  localeId="1033"
+                  name="Flat File Source"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether zero-length columns are treated as null."
+                      name="RetainNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                      name="FileNameColumnName"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Update_Logo\import_logo\Flat File Source.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[import_logo_flat_file]"
+                      connectionManagerRefId="Package.ConnectionManagers[import_logo_flat_file]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Output]"
+                      name="Flat File Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Output].Columns[Column 0]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Column 0]"
+                          length="200"
+                          lineageId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Output].Columns[Column 0]"
+                          name="Column 0"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Column 0]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          name="Column 0" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Error Output]"
+                      isErrorOut="true"
+                      name="Flat File Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          codePage="1252"
+                          dataType="text"
+                          description="Flat File Source Error Output Column"
+                          lineageId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          name="Flat File Source Error Output Column" />
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Update_Logo\import_logo\Import Column"
+                  componentClassID="Microsoft.Inserter"
+                  contactInfo="Import Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Reads data from files and adds it to columns in a data flow. For example, use an input column of file paths to import photographs from a directory."
+                  name="Import Column"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Update_Logo\import_logo\Import Column.Inputs[Import Column Input]"
+                      name="Import Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Update_Logo\import_logo\Import Column.Inputs[Import Column Input].Columns[Column 0]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="200"
+                          cachedName="Column 0"
+                          errorOrTruncationOperation="File Open"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Output].Columns[Column 0]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the ID of the output column to receive the file data."
+                              name="FileDataColumnID">#{Package\Update_Logo\import_logo\Import Column.Outputs[Import Column Output].Columns[image]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="TRUE if the file is expected to begin with a BOM"
+                              name="ExpectBOM">false</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Update_Logo\import_logo\Import Column.Outputs[Import Column Output]"
+                      exclusionGroup="1"
+                      name="Import Column Output"
+                      synchronousInputId="Package\Update_Logo\import_logo\Import Column.Inputs[Import Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\Import Column.Outputs[Import Column Output].Columns[image]"
+                          dataType="image"
+                          errorOrTruncationOperation="File Read"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Update_Logo\import_logo\Import Column.Outputs[Import Column Output].Columns[image]"
+                          name="image" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Update_Logo\import_logo\Import Column.Outputs[Import Column Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Import Column Error Output"
+                      synchronousInputId="Package\Update_Logo\import_logo\Import Column.Inputs[Import Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\Import Column.Outputs[Import Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Update_Logo\import_logo\Import Column.Outputs[Import Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\Import Column.Outputs[Import Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Update_Logo\import_logo\Import Column.Outputs[Import Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Update_Logo\import_logo\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">"public"."x_logo_import"</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Update_Logo\import_logo\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[postgres_dev]"
+                      connectionManagerRefId="Package.ConnectionManagers[postgres_dev]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Update_Logo\import_logo\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Update_Logo\import_logo\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Column 0]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Copy of Column 0"
+                          externalMetadataColumnId="Package\Update_Logo\import_logo\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Path]"
+                          lineageId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Column 0]" />
+                        <inputColumn
+                          refId="Package\Update_Logo\import_logo\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of image]"
+                          cachedDataType="image"
+                          cachedName="Copy of image"
+                          externalMetadataColumnId="Package\Update_Logo\import_logo\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Image_Binary]"
+                          lineageId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of image]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Update_Logo\import_logo\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Path]"
+                          dataType="wstr"
+                          length="255"
+                          name="Path" />
+                        <externalMetadataColumn
+                          refId="Package\Update_Logo\import_logo\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Image_Binary]"
+                          dataType="image"
+                          name="Image_Binary" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Update_Logo\import_logo\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Update_Logo\import_logo\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Update_Logo\import_logo\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Update_Logo\import_logo\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Update_Logo\import_logo\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Update_Logo\import_logo.Paths[Data Conversion Output]"
+                  endId="Package\Update_Logo\import_logo\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Data Conversion Output"
+                  startId="Package\Update_Logo\import_logo\Data Conversion.Outputs[Data Conversion Output]" />
+                <path
+                  refId="Package\Update_Logo\import_logo.Paths[Flat File Source Output]"
+                  endId="Package\Update_Logo\import_logo\Import Column.Inputs[Import Column Input]"
+                  name="Flat File Source Output"
+                  startId="Package\Update_Logo\import_logo\Flat File Source.Outputs[Flat File Source Output]" />
+                <path
+                  refId="Package\Update_Logo\import_logo.Paths[Import Column Output]"
+                  endId="Package\Update_Logo\import_logo\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Import Column Output"
+                  startId="Package\Update_Logo\import_logo\Import Column.Outputs[Import Column Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Update_Logo\Truncate X_Logo_import"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{AF6733E7-81D0-462B-92FF-6411B2A9B037}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate X_Logo_import"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{D94AFC71-17AE-4FFE-8618-81A2E7262A51}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::I_TruncateCommand" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Update_Logo.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{F1D8120D-80DF-41C6-A316-B197CFCE8F37}"
+          DTS:From="Package\Update_Logo\Truncate X_Logo_import"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Update_Logo\import_logo" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Update_Logo.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{3AF0C283-21C1-446C-8D1E-4EEAD915D4DE}"
+          DTS:From="Package\Update_Logo\import_logo"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Update_Logo\Execute SQL Task" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="135,42"
+          Id="Package\Download_logo\export_logo"
+          TopLeft="47,21" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="251,133"
+          Size="251,176"
+          Id="Package\Download_logo"
+          TopLeft="572,34" />
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Update_Logo\Execute SQL Task"
+          TopLeft="47,169" />
+        <NodeLayout
+          Size="135,42"
+          Id="Package\Update_Logo\import_logo"
+          TopLeft="61,80" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Update_Logo\Truncate X_Logo_import"
+          TopLeft="37,5" />
+        <EdgeLayout
+          Id="Package\Update_Logo.PrecedenceConstraints[Constraint]"
+          TopLeft="131.5,47">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Update_Logo.PrecedenceConstraints[Constraint 1]"
+          TopLeft="128.5,122">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="286,266"
+          Size="286,309"
+          Id="Package\Update_Logo"
+          TopLeft="104,31" />
+        <AnnotationLayout
+          Text="Version:2019-05-15&#xA;&#xA;Last updated by PHARMMD\Mike.Rezvani and Pharmmd\Nikhhil.Nuthakki&#xA;&#xA;Relevant Variables: all starting with IO_ or O_&#xA;&#xA;Manually updated variables: IO_InitialCatalog; IO_ServerName, IO_Logo, IO_OrganizationID,O_OutputPath&#xA;&#xA;All other variables are process variables and SHOULD NOT be updated.&#xA;&#xA;1.  Find the target record in the x_cms_cmr_org_extension table.  Make note of the organization_id &#xA;&#xA;    and the target file name.  The image file written will be in the target directory (see step 2)&#xA;&#xA;    and will have the same name as the image file name saved in the table.&#xA;&#xA;2.  Update the O_OutPutPath variable to the directory where the image is to be saved.  &#xA;&#xA;3.  Update the IO_lnitialCatalog and IO_ServerName variables to match the target server.&#xA;&#xA;4.  Update the IO_OrganizationID and IO_Logo variables to the values indicated in step 1.&#xA;&#xA;5.  DISABLE container for Upload Logo.&#xA;&#xA;6.  ENABLE container for Download Logo&#xA;&#xA;7.  Run package&#xA;&#xA;8.  Find and validate downloaded image file"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="394,630"
+          Id="5c9468e7-0766-40c6-b72d-e4a9272526d2"
+          TopLeft="58,347" />
+        <AnnotationLayout
+          Text="Upload Instructions:&#xA;&#xA;Version:2019-05-15&#xA;Last updated by PHARMMD\Mike.Rezvani and Pharmmd\Nikhhil.Nuthakki&#xA;&#xA;Relevant Variables: all starting with IO_ or I_&#xA;&#xA;Manually updated variables: IO_InitialCatalog; IO_ServerName, IO_Logo, IO_OrganizationID&#xA;&#xA;All other variables are process variables and SHOULD NOT be updated.&#xA;&#xA;1.  Ensure the necessary record exists in the x_cms_cmr_org_extension table.  Make note of the organization_id &#xA;&#xA;    and the target file name, recognizing that the target file name in the table need not be the same as &#xA;&#xA;    the name of the actual image file.&#xA;&#xA;2.  Update the listimages.txt file located in the parent directory of this package.  It should contain one line with the &#xA;&#xA;    full path to the location of the image and a line break at the end of the line.  &#xA;&#xA;3.  Update the IO_lnitialCatalog and IO_ServerName variables to match the target postgres server.&#xA;&#xA;4.  Update the IO_OrganizationID and IO_Logo variables to the values indicated in step 1.&#xA;&#xA;5.  Ensure the x_logo_import table exists in the target postgres database.&#xA;&#xA;6.  DISABLE container for Download Logo.&#xA;&#xA;7.  ENABLE container for Upload Logo&#xA;&#xA;8.  Run package&#xA;&#xA;9.  Test Result&#xA;&#xA;Optional: If you want to &quot;watch&quot; the update, run the following query in Postgres before and after &#xA;&#xA;running the package, inserting the organization name and logo name as necessary:&#xA;&#xA;    select length(logo_binary) from x_cms_cmr_org_extension  where organization_id =? &#xA;&#xA;        and logo_name = ?&#xA;&#xA;This measures the number of bytes in the stored image and is virtually guaranteed to be different &#xA;&#xA;before and after uploading a new image.&#xA;"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="526,870"
+          Id="70867c4f-446b-4590-ae15-bb19b602aaa7"
+          TopLeft="550,218" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Download_logo\export_logo">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Download_logo\export_logo\OLE DB Source"
+          TopLeft="289,27" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Download_logo\export_logo\Derived Column"
+          TopLeft="320,121" />
+        <EdgeLayout
+          Id="Package\Download_logo\export_logo.Paths[OLE DB Source Output]"
+          TopLeft="364,69">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="33,52"
+              Start="0,0"
+              End="33,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22"
+                    Point2="0,26"
+                    Point3="4,26" />
+                  <mssgle:LineSegment
+                    End="29,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="29,26"
+                    Point2="33,26"
+                    Point3="33,30" />
+                  <mssgle:LineSegment
+                    End="33,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="148,42"
+          Id="Package\Download_logo\export_logo\Export Column"
+          TopLeft="346,198" />
+        <EdgeLayout
+          Id="Package\Download_logo\export_logo.Paths[Derived Column Output]"
+          TopLeft="397,163">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="23,35"
+              Start="0,0"
+              End="23,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.5"
+                    Point2="0,17.5"
+                    Point3="4,17.5" />
+                  <mssgle:LineSegment
+                    End="19,17.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="19,17.5"
+                    Point2="23,17.5"
+                    Point3="23,21.5" />
+                  <mssgle:LineSegment
+                    End="23,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Download_logo\export_logo\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Update_Logo\import_logo">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Update_Logo\import_logo\Flat File Source"
+          TopLeft="130.5,20.5" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Update_Logo\import_logo\Import Column"
+          TopLeft="165,112" />
+        <EdgeLayout
+          Id="Package\Update_Logo\import_logo.Paths[Flat File Source Output]"
+          TopLeft="206,62.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="34,49.5"
+              Start="0,0"
+              End="34,42">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.75"
+                    Point2="0,24.75"
+                    Point3="4,24.75" />
+                  <mssgle:LineSegment
+                    End="30,24.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="30,24.75"
+                    Point2="34,24.75"
+                    Point3="34,28.75" />
+                  <mssgle:LineSegment
+                    End="34,42" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Update_Logo\import_logo\Data Conversion"
+          TopLeft="194,223" />
+        <EdgeLayout
+          Id="Package\Update_Logo\import_logo.Paths[Import Column Output]"
+          TopLeft="240,154">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="32,69"
+              Start="0,0"
+              End="32,61.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30.5"
+                    Point2="0,34.5"
+                    Point3="4,34.5" />
+                  <mssgle:LineSegment
+                    End="28,34.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="28,34.5"
+                    Point2="32,34.5"
+                    Point3="32,38.5" />
+                  <mssgle:LineSegment
+                    End="32,61.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Update_Logo\import_logo\OLE DB Destination"
+          TopLeft="225,320" />
+        <EdgeLayout
+          Id="Package\Update_Logo\import_logo.Paths[Data Conversion Output]"
+          TopLeft="272,265">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="38.5,55"
+              Start="0,0"
+              End="38.5,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.5"
+                    Point2="0,27.5"
+                    Point3="4,27.5" />
+                  <mssgle:LineSegment
+                    End="34.5,27.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="34.5,27.5"
+                    Point2="38.5,27.5"
+                    Point3="38.5,31.5" />
+                  <mssgle:LineSegment
+                    End="38.5,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Update_Logo\import_logo\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
