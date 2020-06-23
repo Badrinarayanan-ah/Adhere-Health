@@ -1,0 +1,37 @@
+<#
+// TYPE 3: Other Operational Sources
+sSQL = @"EXEC ODSBase.x_Control_GetSyncEntities @DataSourceTypeId = 3;";
+tblSyncEntities = ExternalDataAccess.GetDataTable(controlConn,sSQL); 
+
+foreach (DataRow r in tblSyncEntities.Rows)
+{
+	serverName = r["DestServer"].ToString();
+	dbName = r["DestDB"].ToString();
+	connKey = String.Format(@"dest:{0}.{1}", serverName, dbName);
+	connString = String.Format(connTemplate, serverName, dbName);
+	
+	if (!connections.Keys.Contains(connKey))
+	{
+		connections.Add(connKey, connString);
+	}
+	
+	dataSourceTypeId = r["DataSourceTypeId"].ToString();
+	dataSourceId = r["DataSourceId"].ToString();
+	
+	sSQL = String.Format(@"EXEC ODSBase.x_Control_GetSQLServerSources @DataSourceTypeId = {0};", dataSourceTypeId);
+	tblSources = ExternalDataAccess.GetDataTable(controlConn,sSQL); 
+	foreach (DataRow r2 in tblSources.Rows)
+	{
+			serverName = r2["ServerName"].ToString();
+			dbName = r2["DBName"].ToString();
+			connKey = String.Format(@"src:{0}.{1}", serverName, dbName);
+			connString = String.Format(connTemplate, serverName, dbName);
+			
+			if (!connections.Keys.Contains(connKey))
+			{
+				connections.Add(connKey, connString);
+			}
+	}
+}
+
+#>

@@ -1,0 +1,23 @@
+<#@ template  language="C#" tier="1" #>
+<#@ include  file="inc_VariableDeclarations.biml"#>
+<#@ include  file="inc_MirrorConnections.biml"#>
+<#@ include  file="inc_RefConnections.biml"#>
+<#@ include  file="inc_OpsConnections.biml"#>
+
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Connections>
+        <# foreach (string s in connections.Keys)
+		{ #>
+		<OleDbConnection Name="<#=s#>"
+						 ConnectionString="<#=connections[s]#>"
+						 RetainSameConnection="false"
+						 CreatePackageConfiguration="true"
+						 DelayValidation="true">
+
+		</OleDbConnection>
+		<# } #>
+    </Connections>
+	
+</Biml>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Collections.Generic" #>

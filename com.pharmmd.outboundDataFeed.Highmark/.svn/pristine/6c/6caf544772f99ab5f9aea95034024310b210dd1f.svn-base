@@ -1,0 +1,21 @@
+SELECT CONVERT(VARCHAR(MAX), DATEadd(MONTH, -1, DATEADD(DAY, -DAY(GETDATE())+1, GETDATE())), 112) -- Change to first of the month reported.UNION all
+SELECT    CONVERT(varchar(5), ContractNumber) + '|' + CONVERT(varchar(12), ClientMemberId) + '|' + CONVERT(varchar(30), FirstName) + '|' + CONVERT(varchar(1), MiddleInitial) 
+                      + '|' + CONVERT(varchar(30), LastName) + '|' + CONVERT(varchar(8), DoB, 112) 
+                      + '|' + CASE WHEN IsTargetCMSCriteriaMet = 1 THEN 'Y' ELSE 'N' END + '|' + CASE IsCognitivelyImpaired WHEN 1 THEN 'Y' WHEN 0 THEN 'N' ELSE 'U' END + '|' + CONVERT(varchar(8),
+                       ISNULL(CONVERT(varchar(8), MTMEnrollmentDate, 112), '')) + '|' + CONVERT(varchar(8), ISNULL(CONVERT(varchar(8), TargetCMSCriteriaMetDate, 112), '')) + '|' + CONVERT(varchar(8), 
+                      ISNULL(CONVERT(varchar(8), MTMOptOutDate, 112), '')) + '|' + CONVERT(varchar(2), (CASE WHEN MTMOptOutReasonCd IS NULL 
+                      THEN '' ELSE '0' + '|' + CAST(MTMOptOutReasonCd AS varchar(1)) END)) + '|' + CASE WHEN IsAnnualCMROffered = 1 THEN 'Y' ELSE 'N' END + '|' + CONVERT(varchar(8), 
+                      ISNULL(CONVERT(varchar(8), CMROfferedDate, 112), '')) + '|' + CASE WHEN IsAnnualCMRReceivedInStdCMSFmt = 1 THEN 'Y' ELSE 'N' END + '|' + CONVERT(varchar(2), 
+                      ISNULL(CMRCount, 0)) + '|' + CONVERT(varchar(8), ISNULL(CONVERT(varchar(8), CMRReceivedDate1, 112), '')) + '|' + CONVERT(varchar(8), ISNULL(CONVERT(varchar(8), 
+                      CMRReceivedDate2, 112), '')) + '|' + CONVERT(varchar(8), ISNULL(CONVERT(varchar(8), CMRReceivedDate3, 112), '')) + '|' + CONVERT(varchar(8), ISNULL(CONVERT(varchar(8), 
+                      CMRReceivedDate4, 112), '')) + '|' + CONVERT(varchar(8), ISNULL(CONVERT(varchar(8), CMRReceivedDate5, 112), '')) + '|' + CONVERT(varchar(2), 
+                      (CASE WHEN CMRDeliveryMethod IS NULL THEN ' ' ELSE '0' + '|' + CAST(CMRDeliveryMethod AS varchar(1)) END)) + '|' + CONVERT(varchar(2), 
+                      (CASE WHEN CMRInitialProvider IS NULL THEN '' ELSE CAST(CMRInitialProvider AS varchar(2)) END)) + '|' + CONVERT(varchar(2), (CASE WHEN CMRRecipient IS NULL 
+                      THEN '' ELSE '0' + '|' + CAST(CMRRecipient AS varchar(1)) END)) + '|' + CONVERT(varchar(2), (CASE WHEN TMRCount IS NULL THEN ' ' ELSE CAST(TMRCount AS varchar(1)) END)) 
+                      + '|' + CONVERT(varchar(2), (CASE WHEN DTPRecommendationsCount IS NULL THEN ' ' ELSE CAST(DTPRecommendationsCount AS varchar(1)) END)) + '|' + CONVERT(varchar(2), 
+                      (CASE WHEN DTPResolutionsCount IS NULL THEN ' ' ELSE CAST(DTPResolutionsCount AS varchar(1)) END)) + '|' + CONVERT(varchar(75), ISNULL(TopicsDiscussed1, '')) 
+                      + '|' + CONVERT(varchar(75), ISNULL(TopicsDiscussed2, '')) + '|' + CONVERT(varchar(75), ISNULL(TopicsDiscussed3, '')) + '|' + CONVERT(varchar(75), ISNULL(TopicsDiscussed4, '')) 
+                      + '|' + CONVERT(varchar(75), ISNULL(TopicsDiscussed5, '')) + '|' + p.Cardholder_ID AS CMSBeneficiaryData
+FROM         dbo.CMSBeneficiaryStaging cms
+	JOIN SQLETL.etlcore.dbo.Patient p ON cms.PMDPatientID = p.PMD_Patient_ID
+WHERE cms.PMDClientID = 54

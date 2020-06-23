@@ -1,0 +1,115 @@
+<#@ template  language="C#" tier="4" #>
+<#@ include  file="inc_VariableDeclarations.biml"#>
+<#@ include  file="inc_OpsConnections.biml"#>
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Packages>
+        <#
+            sSQL = @"EXEC ODSBase.x_Control_GetSyncEntities @DataSourceTypeId = 3;";
+            tblSyncEntities = ExternalDataAccess.GetDataTable(controlConn,sSQL); 
+            foreach (DataRow entity in tblSyncEntities.Rows)
+            {
+                serverName = entity["DestServer"].ToString();
+    	        dbName = entity["DestDB"].ToString();
+    	        connKey = String.Format(@"dest:{0}.{1}", serverName, dbName);
+    	        string destConnKey = connKey;
+    	        packageName = entity["PackageName"].ToString();
+    	        string lookupLastIdQueryTemplate = entity["PreProcessQuery"].ToString();
+    	        string processDataQueryTemplate = entity["ProcessDataQuery"].ToString();
+    			string destTableName = entity["DestTable"].ToString();
+    			string getDataQuery = entity["GetDataQuery"].ToString();
+    			string entityName = entity["Name"].ToString();
+				bool  preProcessReturnsId = ((entity["PreProcessReturnsId"].ToString().Contains("0")) ? false : true);
+				string resultSetValueText = ((preProcessReturnsId) ? @"SingleRow" : "None");
+			    dataSourceTypeId = entity["DataSourceTypeId"].ToString();
+		        dataSourceId = entity["DataSourceId"].ToString();
+		    
+		    
+		        sSQL = String.Format(@"EXEC ODSBase.x_Control_GetSQLServerSources @DataSourceTypeId = {0}, @DataSourceId = {1};", dataSourceTypeId, dataSourceId);
+			    tblSources = ExternalDataAccess.GetDataTable(controlConn,sSQL); 
+    			foreach (DataRow source in tblSources.Rows)
+                {
+    			    serverName = source["ServerName"].ToString();
+    				dbName = source["DBName"].ToString();
+    				connKey = String.Format(@"src:{0}.{1}", serverName, dbName);
+    				string srcConnKey = connKey;
+    				string sourceId = source["DataSourceId"].ToString();
+    				string lookupLastIdQuery = lookupLastIdQueryTemplate.Replace("?", sourceId);
+    				string processDataQuery = processDataQueryTemplate.Replace("?", sourceId);
+    	
+        #>        
+        <Package FailParentOnFailure="false" FailPackageOnFailure="true" DelayValidation="true" ConstraintMode="Linear"  Name="<#=packageName#>"  SsisPackageType="DTSDesigner100">
+            
+            <Connections>
+    			<Connection ConnectionName="<#=destConnKey#>" RetainSameConnection="false"/>
+    			<Connection ConnectionName="<#=srcConnKey#>" RetainSameConnection="false"/>
+    			<Connection ConnectionName="ControlConn"  RetainSameConnection="false"/>
+    		</Connections>
+    		<LogProviders>
+				<SqlServerLogProvider Name="LogProvider1" ConnectionName="ControlConn"/>
+			</LogProviders>
+			<LogEvents>
+				<LogEvent EventName="OnError"/>
+				<LogEvent EventName="OnProgress"/>
+				<LogEvent EventName="OnTaskFailed"/>
+				<LogEvent EventName="OnVariableValueChanged"/>
+				<LogEvent EventName="OnWarning"/>
+			</LogEvents>
+    		<Variables>
+			    
+			    <# if (!String.IsNullOrEmpty(processDataQuery))
+				{ #>
+			    <Variable Name="QueryPostProcess" DataType="String" Namespace="User" RaiseChangedEvent="true"><![CDATA[<#=processDataQuery#>]]></Variable>
+			    <#}#>
+			    <# if (preProcessReturnsId)
+				{ #>
+				<Variable Name="LastId" DataType="Int64" Namespace="User" RaiseChangedEvent="true">0</Variable>
+				<Variable Name="ExpressionSelectData" Namespace="User" DataType="String" RaiseChangedEvent="true" EvaluateAsExpression="true">REPLACE("<#=getDataQuery#>", "?", (DT_WSTR,10) @[User::LastId])</Variable>
+				<Variable Name="QueryLookupLastId" Namespace="User" DataType="String" RaiseChangedEvent="true"><![CDATA[<#=lookupLastIdQuery#>]]></Variable>
+			    <# } 
+			    else {#>
+			    <Variable Name="QueryLookupLastId" Namespace="User" DataType="String" RaiseChangedEvent="true"><![CDATA[<#=lookupLastIdQuery#>]]></Variable>
+                <Variable Name="ExpressionSelectData" Namespace="User" DataType="String" RaiseChangedEvent="true"><![CDATA[<#=getDataQuery#>]]></Variable>
+			    <#}#>
+	        </Variables>
+	        <Tasks>
+	            <# if (!String.IsNullOrEmpty(lookupLastIdQuery))
+				{ #>
+			    <ExecuteSQL ResultSet="<#=resultSetValueText#>" ConnectionName="<#=destConnKey#>" BypassPrepare="true" DelayValidation="true" Name="PreProcess">
+    				<VariableInput VariableName="User.QueryLookupLastId"/>
+    				<# if (preProcessReturnsId) 
+    				{#>
+    				<Results>
+    				    <Result Name="LastIdLoaded" VariableName="User.LastId"/>
+    				</Results>
+    			    <#}#>
+                </ExecuteSQL>
+			    <# } #>
+			    <Dataflow Name="Data Flow" DelayValidation="true" >
+					<Transformations>
+						<OleDbSource Name="Source" ConnectionName="<#=srcConnKey#>" CommandTimeout="0" ValidateExternalMetadata="false">
+							<VariableInput VariableName="User.ExpressionSelectData"/>
+						</OleDbSource>
+						<OleDbDestination Name="Destination" ConnectionName="<#=destConnKey#>" KeepIdentity="false" Timeout="0" 
+						    UseFastLoadIfAvailable="true" CheckConstraints="false" ValidateExternalMetadata="false">
+							<ExternalTableOutput Table="<#=destTableName#>"/>
+						</OleDbDestination>
+					</Transformations>
+				</Dataflow>    
+				<# if (!String.IsNullOrEmpty(processDataQuery))
+				{ #>
+			    <ExecuteSQL Name="PostProcessing" DelayValidation="true" ConnectionName="<#=destConnKey#>" ResultSet="None">
+                    <VariableInput VariableName="User.QueryPostProcess"/>
+			        
+			    </ExecuteSQL>
+			        
+			    
+			    <# }#>
+            </Tasks>
+        </Package>
+                        <# } 
+            }#>        
+
+    </Packages>
+</Biml>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Collections.Generic" #>

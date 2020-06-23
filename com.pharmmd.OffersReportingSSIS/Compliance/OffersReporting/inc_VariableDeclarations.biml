@@ -1,0 +1,27 @@
+<#
+// VARIABLE DECLARATIONS
+string connKey = "";
+string connString = "";
+string serverName = "";
+string dbName = "";
+Dictionary<string, string> connections = new Dictionary<string, string>();
+string dataSourceTypeId = "";
+string dataSourceId = "";
+string packageName = "";
+string connTemplate = @"Provider=SQLNCLI10;Server={0};Initial Catalog={1};Integrated Security=SSPI;";
+DataTable tblSyncEntities = null;
+DataTable tblSources  = null;
+string sSQL = "";
+
+
+// CONTROL CONNECTION
+string controlServer = @"SQLDW";
+string controlDB = "Compliance";
+string controlConn = String.Format(connTemplate, controlServer, controlDB);
+
+if (!connections.Keys.Contains(@"ControlConn"))
+{
+    connections.Add(@"ControlConn", controlConn);
+}
+
+#>  

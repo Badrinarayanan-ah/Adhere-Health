@@ -1,0 +1,216 @@
+<#@ template  language="C#" tier="6" #>
+<#@ include  file="inc_VariableDeclarations.biml"#>
+<#@ include  file="inc_RefConnections.biml"#>
+<# 
+
+controlConn = String.Format(@"Provider=SQLNCLI10;Server={0};Initial Catalog={1};Integrated Security=SSPI;", controlServer, controlDB);
+sSQL = @"EXEC ODSBase.x_Control_GetSyncEntities @DataSourceTypeId = 2;";
+	
+tblSyncEntities = ExternalDataAccess.GetDataTable(controlConn,sSQL); 
+
+string destDataSourceKey = "";
+connKey = "";
+connTemplate = @"Provider=SQLNCLI10;Server={0};Initial Catalog={1};Integrated Security=SSPI;";
+connString = "";
+serverName = "";
+dbName = "";
+List<string> referencePackages = new List<string>();
+List<string> operationalPackages = new List<string>();
+Dictionary<string, List<string>> mirrorPackages = new Dictionary<string, List<string>>();
+dataSourceTypeId = "";
+dataSourceId = "";
+packageName = "";
+destDataSourceKey = "";
+
+if (!connections.Keys.Contains("ControlConn"))
+{
+    connections.Add("ControlConn", controlConn);
+}
+
+foreach (DataRow r in tblSyncEntities.Rows)
+{
+
+    serverName = r["DestServer"].ToString();
+    dbName = r["DestDB"].ToString();
+    connKey = String.Format(@"dest:{0}.{1}", serverName, dbName);
+	connString = String.Format(connTemplate, serverName, dbName);
+    packageName = String.Format(@"{0}.dtsx", r["PackageName"].ToString());
+    
+    if(!referencePackages.Contains(packageName))
+    {
+        referencePackages.Add(packageName);
+    }
+    
+    if (!connections.Keys.Contains(connKey))
+	{
+	    connections.Add(connKey, connString);
+	}
+	
+	destDataSourceKey = connKey;
+    
+}
+
+sSQL = @"EXEC ODSBase.x_Control_GetSyncEntities @DataSourceTypeId = 1;";
+tblSyncEntities = ExternalDataAccess.GetDataTable(controlConn,sSQL);
+foreach (DataRow entity in tblSyncEntities.Rows)
+{
+    string entityName = entity["Name"].ToString();
+	dataSourceTypeId = entity["DataSourceTypeId"].ToString();
+	dataSourceId = entity["DataSourceId"].ToString();
+	
+	if ((String.IsNullOrEmpty(dataSourceId)) && (!String.IsNullOrEmpty(dataSourceTypeId)))
+	{
+	    sSQL = String.Format(@"EXEC ODSBase.x_Control_GetSQLServerSources @DataSourceTypeId = {0};", dataSourceTypeId);
+	    tblSources = ExternalDataAccess.GetDataTable(controlConn,sSQL); 
+		foreach (DataRow source in tblSources.Rows)
+		{
+		    serverName = source["ServerName"].ToString();
+			dbName = source["DBName"].ToString();
+			packageName = String.Format(@"{0}_{1}_{2}.dtsx",entityName, serverName, dbName);
+			
+			string sourceName = String.Format(@"{0}_{1}", serverName, dbName);
+			
+			if (!mirrorPackages.Keys.Contains(sourceName))
+			{
+			    mirrorPackages.Add(sourceName, new List<string>());
+			}
+			
+			if (!mirrorPackages[sourceName].Contains(sourceName))
+			{
+			    mirrorPackages[sourceName].Add(packageName);
+			}
+			
+		}
+	}
+}
+
+
+sSQL = @"EXEC ODSBase.x_Control_GetSyncEntities @DataSourceTypeId = 3;";
+tblSyncEntities = ExternalDataAccess.GetDataTable(controlConn,sSQL);
+foreach (DataRow r in tblSyncEntities.Rows)
+{
+
+    packageName = String.Format(@"{0}.dtsx", r["PackageName"].ToString());
+    if (!operationalPackages.Contains(packageName))
+    {
+        operationalPackages.Add(packageName);
+    }
+    
+}
+
+#>
+
+
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Connections>
+		<# foreach (string package in referencePackages)
+		{ #>
+			<FileConnection DelayValidation="true" FilePath="." FileUsageType="ExistingFile" Name="Conn_<#=package.Replace(".dtsx", "")#>">
+				<Expressions>
+					<Expression PropertyName="ConnectionString">@[User::BaseDirectory] + "<#=package#>"</Expression>
+				</Expressions>
+			</FileConnection>
+		<# } #>
+		<# foreach (string package in operationalPackages)
+		{ #>
+			<FileConnection DelayValidation="true" FilePath="." FileUsageType="ExistingFile" Name="Conn_<#=package.Replace(".dtsx", "")#>">
+				<Expressions>
+					<Expression PropertyName="ConnectionString">@[User::BaseDirectory] + "<#=package#>"</Expression>
+				</Expressions>
+			</FileConnection>
+		<# } #>
+		<# 
+		foreach (string key in mirrorPackages.Keys)
+			{
+		  foreach (string package in mirrorPackages[key])
+		{ #>
+			<FileConnection DelayValidation="true" FilePath="." FileUsageType="ExistingFile" Name="Conn_<#=package.Replace(".dtsx", "")#>">
+				<Expressions>
+					<Expression PropertyName="ConnectionString">@[User::BaseDirectory] + "<#=package#>"</Expression>
+				</Expressions>
+			</FileConnection>
+		<# }
+			} #>
+
+	</Connections>
+    <Packages>
+        <Package DelayValidation="true" ConstraintMode="Linear" Name="Main" LoggingMode="Disabled" SsisPackageType="DTSDesigner100">
+			<Variables>
+				<Variable DataType="String" Name="BaseDirectory" Namespace="User"><![CDATA[\\sqlrdp\artifacts\prod\com.pharmmd.OffersReportingSSIS\Compliance\OffersReporting\]]></Variable>
+			</Variables>
+    		<LogProviders>
+				<SqlServerLogProvider Name="LogProvider1" ConnectionName="ControlConn"/>
+			</LogProviders>
+			<LogEvents>
+				<LogEvent EventName="OnError"/>
+				<LogEvent EventName="OnProgress"/>
+				<LogEvent EventName="OnTaskFailed"/>
+				<LogEvent EventName="OnVariableValueChanged"/>
+				<LogEvent EventName="OnWarning"/>
+			</LogEvents>
+            <Tasks>
+				<Container Name="MainContainer" ConstraintMode="Linear">
+					<Tasks>
+					    <Container Name="RefData" ConstraintMode="Linear">
+					        <Tasks>
+					        <# foreach (string package in referencePackages)
+                            { #>
+                                <ExecutePackage Name="Exec <#=package.Replace(".dtsx", "")#>"  ExecuteOutOfProcess="true" DelayValidation="true">
+									<File ConnectionName="Conn_<#=package.Replace(".dtsx", "")#>"></File>
+                                    <!--<Package PackageName="<#=package.Replace(".dtsx", "")#>"></Package>-->
+                                    <!--<ExternalProjectPackage Package="<#=package#>"></ExternalProjectPackage>-->
+                                </ExecutePackage>
+                            <#}#>
+					        </Tasks>
+					    </Container>
+					    <Container Name="MirrorData" ConstraintMode="Parallel" >
+					        <Tasks>
+					        <# foreach(string packageGroup in mirrorPackages.Keys)
+					        { #>
+					        <Container Name="MirrorData_<#=packageGroup#>" ConstraintMode="Linear">
+					            <Tasks>
+					        <# foreach(string package in  mirrorPackages[packageGroup])
+					        { #>
+					            
+					            <ExecutePackage Name="Exec <#=package.Replace(".dtsx", "")#>" DelayValidation="true"  ExecuteOutOfProcess="true">
+					                
+					                <!--<Package PackageName="<#=package.Replace(".dtsx", "")#>"></Package>-->
+                                    <!--<ExternalProjectPackage Package="<#=package#>"></ExternalProjectPackage>-->
+									<File ConnectionName="Conn_<#=package.Replace(".dtsx", "")#>"></File>
+                                </ExecutePackage>
+					        <#} #>
+					            </Tasks>
+					        </Container>
+					        <#}#>
+					        </Tasks>
+					    </Container>
+					    <Container Name="OtherOperationalData" ConstraintMode="Parallel" DelayValidation="true">
+					        <Tasks>
+					            <# foreach (string package in operationalPackages)
+                            { #>
+                                <ExecutePackage Name="Exec <#=package.Replace(".dtsx", "")#>" ExecuteOutOfProcess="true">
+                                    <!--<Package PackageName="<#=package.Replace(".dtsx", "")#>"></Package>-->
+                                    <!--<ExternalProjectPackage Package="<#=package#>"></ExternalProjectPackage>-->
+									<File ConnectionName="Conn_<#=package.Replace(".dtsx", "")#>"></File>
+                                </ExecutePackage>
+                            <#}#>
+					        </Tasks>
+					        
+					    </Container>
+                        <ExecuteSQL BypassPrepare="true" ConnectionName="<#=destDataSourceKey#>" DelayValidation="true" Name="UpdateCompliance" >
+                            <DirectInput>EXEC ODS.UpdateODS;</DirectInput>
+                        </ExecuteSQL>
+                        
+					</Tasks>
+					    </Container>
+					        </Tasks>
+        </Package>
+        
+    </Packages>
+        
+    
+</Biml>
+
+
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Collections.Generic" #>
