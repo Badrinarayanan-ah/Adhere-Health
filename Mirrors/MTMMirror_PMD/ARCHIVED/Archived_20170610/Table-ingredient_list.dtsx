@@ -1,0 +1,1117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:ExecutableType="SSIS.Package.2" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">3</DTS:Property>
+  <DTS:Property DTS:Name="CreatorName">Joel.Denowski</DTS:Property>
+  <DTS:Property DTS:Name="CreatorComputerName">SQLRDP</DTS:Property>
+  <DTS:Property DTS:DataType="7" DTS:Name="CreationDate">03/23/2017 12:10:54</DTS:Property>
+  <DTS:Property DTS:Name="ProtectionLevel">0</DTS:Property>
+  <DTS:Property DTS:Name="MaxConcurrentExecutables">-1</DTS:Property>
+  <DTS:Property DTS:Name="PackagePriorityClass">0</DTS:Property>
+  <DTS:Property DTS:Name="VersionMajor">0</DTS:Property>
+  <DTS:Property DTS:Name="VersionMinor">0</DTS:Property>
+  <DTS:Property DTS:Name="VersionBuild">0</DTS:Property>
+  <DTS:Property DTS:Name="VersionGUID">{100DBF97-38AB-4252-91FD-FF98AE00D3F0}</DTS:Property>
+  <DTS:Property DTS:Name="EnableConfig">0</DTS:Property>
+  <DTS:Property DTS:Name="CheckpointFileName"></DTS:Property>
+  <DTS:Property DTS:Name="SaveCheckpoints">0</DTS:Property>
+  <DTS:Property DTS:Name="CheckpointUsage">0</DTS:Property>
+  <DTS:Property DTS:Name="SuppressConfigurationWarnings">0</DTS:Property>
+  <DTS:Property DTS:Name="VersionComments"></DTS:Property>
+  <DTS:Property DTS:Name="PackageType">0</DTS:Property>
+  <DTS:Property DTS:Name="LastModifiedProductVersion">10.0.2531.0</DTS:Property>
+  <DTS:Property DTS:Name="CreationName">SSIS.Package.2</DTS:Property>
+  <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+  <DTS:Property DTS:Name="Description"></DTS:Property>
+  <DTS:Property DTS:Name="Disabled">0</DTS:Property>
+  <DTS:Property DTS:Name="DTSID">{E38922DD-019F-4993-B62F-50A398A12976}</DTS:Property>
+  <DTS:Property DTS:DataType="3" DTS:Name="ExecValue">0</DTS:Property>
+  <DTS:Property DTS:Name="ForceExecValue">0</DTS:Property>
+  <DTS:Property DTS:Name="ForceExecutionResult">-1</DTS:Property>
+  <DTS:Property DTS:Name="FailPackageOnFailure">-1</DTS:Property>
+  <DTS:Property DTS:Name="FailParentOnFailure">0</DTS:Property>
+  <DTS:Property DTS:Name="MaxErrorCount">1</DTS:Property>
+  <DTS:Property DTS:Name="ISOLevel">1048576</DTS:Property>
+  <DTS:Property DTS:Name="TransactionOption">1</DTS:Property>
+  <DTS:Property DTS:Name="ObjectName">Table-ingredient_list</DTS:Property>
+  <DTS:Property DTS:Name="DisableEventHandlers">0</DTS:Property>
+  <DTS:Property DTS:Name="LocaleID">1033</DTS:Property>
+  <DTS:ConnectionManager>
+    <DTS:ObjectData>
+      <DTS:ConnectionManager>
+        <DTS:Property DTS:Name="ConnectionString">Provider=SQLNCLI10;Server=SQLDW;Initial Catalog=MTMMirror_Meta;Integrated Security=SSPI;</DTS:Property>
+        <DTS:Property DTS:Name="Retain">0</DTS:Property>
+      </DTS:ConnectionManager>
+    </DTS:ObjectData>
+    <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">meta_conn</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{0656DA80-7749-4B2F-9B00-C42C21CE9EA9}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName">OLEDB</DTS:Property>
+    <DTS:PropertyExpression DTS:Name="ConnectionString">@[User::MetaBaseConnectionStringLocal]</DTS:PropertyExpression>
+  </DTS:ConnectionManager>
+  <DTS:ConnectionManager>
+    <DTS:ObjectData>
+      <DTS:ConnectionManager>
+        <DTS:Property DTS:Name="ConnectionString">Data Source=pmd_prod.pg.pharmmd.com;User ID=sqluser;Initial Catalog=pharmmd_pmd_prod;Password=jTbKBdNyN3ND7w;Provider=PGNP.1;Persist Security Info=True; Extended Properties="PORT=5432;COMMAND_TIMEOUT=0;SQLSERVER=2008;SSL=allow;CNV_SPECIAL_FLTVAL=ON;ZERO_TS_FRACTION=ON;BULK_METHOD=COPY;";Mode=Read;</DTS:Property>
+        <DTS:Property DTS:Name="Retain">0</DTS:Property>
+      </DTS:ConnectionManager>
+    </DTS:ObjectData>
+    <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">source_conn</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{8D2EADA4-CEF4-4C77-9EC4-2354C4549432}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName">OLEDB</DTS:Property>
+    <DTS:PropertyExpression DTS:Name="ConnectionString">@[User::SrcConnectionStringLocal]</DTS:PropertyExpression>
+  </DTS:ConnectionManager>
+  <DTS:ConnectionManager>
+    <DTS:ObjectData>
+      <DTS:ConnectionManager>
+        <DTS:Property DTS:Name="ConnectionString">Data Source=SQLDW;Initial Catalog=MTMMirrorPMD_Stage;Provider=SQLNCLI10.1;Integrated Security=SSPI;Auto Translate=False;</DTS:Property>
+        <DTS:Property DTS:Name="Retain">0</DTS:Property>
+      </DTS:ConnectionManager>
+    </DTS:ObjectData>
+    <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">destination_conn</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{DCF79522-5B32-42EA-ADC0-B3B9390CDF74}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName">OLEDB</DTS:Property>
+    <DTS:PropertyExpression DTS:Name="ConnectionString">@[User::DstConnectionStringLocal]</DTS:PropertyExpression>
+  </DTS:ConnectionManager>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">MetaBaseConnectionStringLocal</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{9D4440D4-41FE-4E09-9304-D0C8CD503957}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">Provider=SQLNCLI10;Server=SQLDW;Initial Catalog=MTMMirror_Meta;Integrated Security=SSPI;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">SrcConnectionStringLocal</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{7729D5D1-729F-4D87-BE5A-918C1BCEDA78}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">Data Source=pmd_prod.pg.pharmmd.com;User ID=sqluser;Initial Catalog=pharmmd_pmd_prod;Password=jTbKBdNyN3ND7w;Provider=PGNP.1;Persist Security Info=True; Extended Properties="PORT=5432;COMMAND_TIMEOUT=0;SQLSERVER=2008;SSL=allow;CNV_SPECIAL_FLTVAL=ON;ZERO_TS_FRACTION=ON;BULK_METHOD=COPY;";Mode=Read;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">DstConnectionStringLocal</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{E5DF9F3B-5C1F-4E0B-9F0B-665B40A4131C}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">Data Source=SQLDW;Initial Catalog=MTMMirrorPMD_Stage;Provider=SQLNCLI10.1;Integrated Security=SSPI;Auto Translate=False;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">LimitDataLocal</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{A3176B6D-62B3-4D54-BCDD-3456EDEC429B}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="3">0</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">QueryDetermineRows</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{0D92699F-9EFF-409E-AFEA-A72B180AAEFF}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">select 1 as rowId;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">QueryDetermineRowsLimited</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{01A26B5D-3139-4112-BDAC-400D73DFBA26}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">select 1 as rowId;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">QuerySelectCount</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{D70F6C09-48A6-418C-B583-EC449C19D35E}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">SELECT  COUNT(1) AS RowCnt,'ingredient_list' as tableName  FROM   (select * from ingredient_list ) x;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">QuerySelectCountLimited</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{4148D863-D265-49F0-87D8-53FBB34DF0F9}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">SELECT  COUNT(1) AS RowCnt,'ingredient_list' as tableName  FROM   (select * from ingredient_list limit 10) x;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">QuerySelectData</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{4B1CF387-6F7B-4777-BEF6-F098A30268E3}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">SELECT  S.*  FROM    ingredient_list S;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">QuerySelectDataLimited</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{B8581924-245A-4025-80E6-B4AF56262965}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">SELECT  S.*  FROM    ingredient_list S limit 10;;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">QueryDeleteMirrorData</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{690858DB-292A-4BA8-A4A1-766CC41EF413}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">DELETE FROM x_mirror_data WHERE tableName = 'ingredient_list';</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">QueryCountDestinationRows</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{7DF4BF1A-90CA-4ADF-8150-03A089FB3033}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">SELECT convert(bigint, count(1)) as RowCnt from ingredient_list S WITH (NOLOCK);</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">QueryTruncateDestination</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{C85E7C82-6C7D-4663-8EEA-AC4E443240CD}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">TRUNCATE TABLE ingredient_list; DELETE ingredient_list;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression">@[User::LimitDataLocal] == 0 ?  @[User::QueryDetermineRows] : @[User::QueryDetermineRowsLimited]</DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">-1</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">ExpressionDetermineRows</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{43E49A1D-029C-424B-8B9D-23132153CF04}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">select 1 as rowId;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression">@[User::LimitDataLocal] == 0 ?  @[User::QuerySelectCount] : @[User::QuerySelectCountLimited]</DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">-1</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">ExpressionSelectCount</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{C3675ED2-EF6A-4C3F-BDAF-8CFC7CC20059}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">SELECT  COUNT(1) AS RowCnt,'ingredient_list' as tableName  FROM   (select * from ingredient_list ) x;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression">@[User::LimitDataLocal] == 0 ?  @[User::QuerySelectData] : @[User::QuerySelectDataLimited]</DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">-1</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">ExpressionSelectData</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{01F24CF0-D696-41FF-8761-7772D4CF5396}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">SELECT  S.*  FROM    ingredient_list S;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">RCSource</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{37ACC076-A370-49DA-A101-5422A339C3E0}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">RCDestination</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{E11D323B-95AC-4156-94BD-3F6C827890F7}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">SourceTableLocal</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{3259B262-B7A9-417B-9BB7-786B22533C89}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">ingredient_list</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">TableExecutionIdLocal</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{2D0EDB9A-5B15-42C1-8618-A452C0E0B625}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">WorkerId</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{1C3EA936-D25D-4C62-AAC1-4E5319EDABE1}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="3">0</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">MirrorId</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{8975E21E-08DD-485E-975B-6D933B92AF82}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="20">27</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">MirrorKey</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{91869226-C34B-44F0-9F71-358FF2B4A0D3}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">PMD_PROD</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">MirrorExecutionId</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{D30135AE-DE4C-4902-937F-66FA11387E23}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">MirrorTableId</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{6AEEBA02-CCCA-4F7B-9262-D79D3B539C18}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="20">12578</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">BaseQuery</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{D84A3DC6-60F2-4FD0-B71D-82E6170CFF33}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">SELECT  S.*  FROM    ingredient_list S;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression">@[User::LimitDataLocal] == 0 ?  @[User::BaseQuery] : @[User::BaseQuery] + " limit 10"</DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">-1</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">SourceQuery</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{630CEDB0-37CE-4A38-B0E3-EDF892A1283D}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8">SELECT  S.*  FROM    ingredient_list S;</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">PackageSubfolderLocal</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{10852AC0-7FA5-4D62-9378-4A8367DF0ED9}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">RCStart</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{7A9B320F-90A3-43BD-890E-80F01E616537}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">RCExtract</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{D0C16887-3070-490C-9D6E-3BB032C1CCFB}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">RCInserted</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{B34C515F-E301-4EE1-BF8D-3D881F66FFAC}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">RCError</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{0D9A4EC2-0821-496F-A277-2E21ADBEA374}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">RCErrorConvert</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{5075A9EE-EE1A-4002-A5FF-2969C14D01B5}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">RCEnd</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{B3B9BD31-8708-4CDB-A4B4-DBBA27171036}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:Variable>
+    <DTS:Property DTS:Name="Expression"></DTS:Property>
+    <DTS:Property DTS:Name="EvaluateAsExpression">0</DTS:Property>
+    <DTS:Property DTS:Name="Namespace">User</DTS:Property>
+    <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
+    <DTS:Property DTS:Name="RaiseChangedEvent">-1</DTS:Property>
+    <DTS:Property DTS:Name="IncludeInDebugDump">2345</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">ColumnsAsList</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{D1825B2B-C146-4E83-B633-00912130274C}</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    <DTS:VariableValue DTS:DataType="8"></DTS:VariableValue>
+  </DTS:Variable>
+  <DTS:LoggingOptions>
+    <DTS:Property DTS:Name="LoggingMode">0</DTS:Property>
+    <DTS:Property DTS:Name="FilterKind">1</DTS:Property>
+    <DTS:Property DTS:DataType="8" DTS:Name="EventFilter"></DTS:Property>
+  </DTS:LoggingOptions>
+  <DTS:Executable DTS:ExecutableType="STOCK:SEQUENCE">
+    <DTS:Property DTS:Name="DelayValidation">0</DTS:Property>
+    <DTS:Property DTS:Name="Description"></DTS:Property>
+    <DTS:Property DTS:Name="Disabled">0</DTS:Property>
+    <DTS:Property DTS:Name="DTSID">{E954FB32-16D5-49F4-BD8F-EDF1C98D37F5}</DTS:Property>
+    <DTS:Property DTS:DataType="3" DTS:Name="ExecValue">0</DTS:Property>
+    <DTS:Property DTS:Name="ForceExecValue">0</DTS:Property>
+    <DTS:Property DTS:Name="ForceExecutionResult">-1</DTS:Property>
+    <DTS:Property DTS:Name="FailPackageOnFailure">0</DTS:Property>
+    <DTS:Property DTS:Name="FailParentOnFailure">0</DTS:Property>
+    <DTS:Property DTS:Name="MaxErrorCount">1</DTS:Property>
+    <DTS:Property DTS:Name="ISOLevel">1048576</DTS:Property>
+    <DTS:Property DTS:Name="TransactionOption">1</DTS:Property>
+    <DTS:Property DTS:Name="ObjectName">MainContainer</DTS:Property>
+    <DTS:Property DTS:Name="DisableEventHandlers">0</DTS:Property>
+    <DTS:Property DTS:Name="LocaleID">-1</DTS:Property>
+    <DTS:Property DTS:Name="CreationName">STOCK:SEQUENCE</DTS:Property>
+    <DTS:LoggingOptions>
+      <DTS:Property DTS:Name="LoggingMode">0</DTS:Property>
+      <DTS:Property DTS:Name="FilterKind">1</DTS:Property>
+      <DTS:Property DTS:DataType="8" DTS:Name="EventFilter"></DTS:Property>
+    </DTS:LoggingOptions>
+    <DTS:Executable DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="Disabled">0</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{DB48C6CE-DF0B-467D-BBA9-0802951155B6}</DTS:Property>
+      <DTS:Property DTS:DataType="3" DTS:Name="ExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecutionResult">-1</DTS:Property>
+      <DTS:Property DTS:Name="FailPackageOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="FailParentOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="MaxErrorCount">1</DTS:Property>
+      <DTS:Property DTS:Name="ISOLevel">1048576</DTS:Property>
+      <DTS:Property DTS:Name="TransactionOption">1</DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">SQL-GetExecutionDetails-</DTS:Property>
+      <DTS:Property DTS:Name="DisableEventHandlers">0</DTS:Property>
+      <DTS:Property DTS:Name="LocaleID">-1</DTS:Property>
+      <DTS:Property DTS:Name="ExecutionAddress"></DTS:Property>
+      <DTS:Property DTS:Name="ExecutionLocation">0</DTS:Property>
+      <DTS:Property DTS:Name="CreationName">Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</DTS:Property>
+      <DTS:Property DTS:Name="TaskContact">Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1</DTS:Property>
+      <DTS:LoggingOptions>
+        <DTS:Property DTS:Name="LoggingMode">0</DTS:Property>
+        <DTS:Property DTS:Name="FilterKind">1</DTS:Property>
+        <DTS:Property DTS:DataType="8" DTS:Name="EventFilter"></DTS:Property>
+      </DTS:LoggingOptions>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:BypassPrepare="true" SQLTask:CodePage="1252" SQLTask:Connection="{0656DA80-7749-4B2F-9B00-C42C21CE9EA9}" SQLTask:IsStoredProc="false" SQLTask:ResultType="ResultSetType_SingleRow" SQLTask:SqlStatementSource="exec Runtime_GetMirrorTableExecutionParams ?, ?;" SQLTask:SqlStmtSourceType="DirectInput" SQLTask:TimeOut="0" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::MirrorKey" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="0"></SQLTask:ParameterBinding>
+          <SQLTask:ParameterBinding SQLTask:DataType="130" SQLTask:DtsVariableName="User::SourceTableLocal" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="1" SQLTask:ParameterSize="0"></SQLTask:ParameterBinding>
+          <SQLTask:ResultBinding SQLTask:DtsVariableName="User::MirrorId" SQLTask:ResultName="MIRROR_ID"></SQLTask:ResultBinding>
+          <SQLTask:ResultBinding SQLTask:DtsVariableName="User::MirrorExecutionId" SQLTask:ResultName="MIRROR_EXECUTION_ID"></SQLTask:ResultBinding>
+          <SQLTask:ResultBinding SQLTask:DtsVariableName="User::MirrorTableId" SQLTask:ResultName="MIRROR_TABLE_ID"></SQLTask:ResultBinding>
+          <SQLTask:ResultBinding SQLTask:DtsVariableName="User::TableExecutionIdLocal" SQLTask:ResultName="MIRROR_TABLE_EXECUTION_ID"></SQLTask:ResultBinding>
+          <SQLTask:ResultBinding SQLTask:DtsVariableName="User::WorkerId" SQLTask:ResultName="WORKER_ID"></SQLTask:ResultBinding>
+          <SQLTask:ResultBinding SQLTask:DtsVariableName="User::SrcConnectionStringLocal" SQLTask:ResultName="SRC_CONNECTION"></SQLTask:ResultBinding>
+          <SQLTask:ResultBinding SQLTask:DtsVariableName="User::DstConnectionStringLocal" SQLTask:ResultName="DST_CONNECTION"></SQLTask:ResultBinding>
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="Disabled">0</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{27BF6C96-4A78-4AA2-8AD6-9790F4DD94E2}</DTS:Property>
+      <DTS:Property DTS:DataType="3" DTS:Name="ExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecutionResult">-1</DTS:Property>
+      <DTS:Property DTS:Name="FailPackageOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="FailParentOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="MaxErrorCount">1</DTS:Property>
+      <DTS:Property DTS:Name="ISOLevel">1048576</DTS:Property>
+      <DTS:Property DTS:Name="TransactionOption">1</DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Clear Determined Rows 1</DTS:Property>
+      <DTS:Property DTS:Name="DisableEventHandlers">0</DTS:Property>
+      <DTS:Property DTS:Name="LocaleID">-1</DTS:Property>
+      <DTS:Property DTS:Name="ExecutionAddress"></DTS:Property>
+      <DTS:Property DTS:Name="ExecutionLocation">0</DTS:Property>
+      <DTS:Property DTS:Name="CreationName">Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</DTS:Property>
+      <DTS:Property DTS:Name="TaskContact">Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1</DTS:Property>
+      <DTS:LoggingOptions>
+        <DTS:Property DTS:Name="LoggingMode">0</DTS:Property>
+        <DTS:Property DTS:Name="FilterKind">1</DTS:Property>
+        <DTS:Property DTS:DataType="8" DTS:Name="EventFilter"></DTS:Property>
+      </DTS:LoggingOptions>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:BypassPrepare="true" SQLTask:CodePage="1252" SQLTask:Connection="{8D2EADA4-CEF4-4C77-9EC4-2354C4549432}" SQLTask:IsStoredProc="false" SQLTask:ResultType="ResultSetType_None" SQLTask:SqlStatementSource="User::QueryDeleteMirrorData" SQLTask:SqlStmtSourceType="Variable" SQLTask:TimeOut="0" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="Disabled">0</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{F18D7D5E-FC8E-493C-A468-BDA3876A5617}</DTS:Property>
+      <DTS:Property DTS:DataType="3" DTS:Name="ExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecutionResult">-1</DTS:Property>
+      <DTS:Property DTS:Name="FailPackageOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="FailParentOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="MaxErrorCount">1</DTS:Property>
+      <DTS:Property DTS:Name="ISOLevel">1048576</DTS:Property>
+      <DTS:Property DTS:Name="TransactionOption">1</DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Determine Rows</DTS:Property>
+      <DTS:Property DTS:Name="DisableEventHandlers">0</DTS:Property>
+      <DTS:Property DTS:Name="LocaleID">-1</DTS:Property>
+      <DTS:Property DTS:Name="ExecutionAddress"></DTS:Property>
+      <DTS:Property DTS:Name="ExecutionLocation">0</DTS:Property>
+      <DTS:Property DTS:Name="CreationName">Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</DTS:Property>
+      <DTS:Property DTS:Name="TaskContact">Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1</DTS:Property>
+      <DTS:LoggingOptions>
+        <DTS:Property DTS:Name="LoggingMode">0</DTS:Property>
+        <DTS:Property DTS:Name="FilterKind">1</DTS:Property>
+        <DTS:Property DTS:DataType="8" DTS:Name="EventFilter"></DTS:Property>
+      </DTS:LoggingOptions>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:BypassPrepare="true" SQLTask:CodePage="1252" SQLTask:Connection="{8D2EADA4-CEF4-4C77-9EC4-2354C4549432}" SQLTask:IsStoredProc="false" SQLTask:ResultType="ResultSetType_None" SQLTask:SqlStatementSource="User::ExpressionDetermineRows" SQLTask:SqlStmtSourceType="Variable" SQLTask:TimeOut="0" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="Disabled">0</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{0770891C-8F1D-4306-865A-F556C198C217}</DTS:Property>
+      <DTS:Property DTS:DataType="3" DTS:Name="ExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecutionResult">-1</DTS:Property>
+      <DTS:Property DTS:Name="FailPackageOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="FailParentOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="MaxErrorCount">1</DTS:Property>
+      <DTS:Property DTS:Name="ISOLevel">1048576</DTS:Property>
+      <DTS:Property DTS:Name="TransactionOption">1</DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Get Source Row Count</DTS:Property>
+      <DTS:Property DTS:Name="DisableEventHandlers">0</DTS:Property>
+      <DTS:Property DTS:Name="LocaleID">-1</DTS:Property>
+      <DTS:Property DTS:Name="ExecutionAddress"></DTS:Property>
+      <DTS:Property DTS:Name="ExecutionLocation">0</DTS:Property>
+      <DTS:Property DTS:Name="CreationName">Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</DTS:Property>
+      <DTS:Property DTS:Name="TaskContact">Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1</DTS:Property>
+      <DTS:LoggingOptions>
+        <DTS:Property DTS:Name="LoggingMode">0</DTS:Property>
+        <DTS:Property DTS:Name="FilterKind">1</DTS:Property>
+        <DTS:Property DTS:DataType="8" DTS:Name="EventFilter"></DTS:Property>
+      </DTS:LoggingOptions>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:BypassPrepare="true" SQLTask:CodePage="1252" SQLTask:Connection="{8D2EADA4-CEF4-4C77-9EC4-2354C4549432}" SQLTask:IsStoredProc="false" SQLTask:ResultType="ResultSetType_SingleRow" SQLTask:SqlStatementSource="User::ExpressionSelectCount" SQLTask:SqlStmtSourceType="Variable" SQLTask:TimeOut="0" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding SQLTask:DtsVariableName="User::RCSource" SQLTask:ResultName="RowCnt"></SQLTask:ResultBinding>
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="Disabled">0</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{232A30B9-7B64-406B-B14A-2B262D627F86}</DTS:Property>
+      <DTS:Property DTS:DataType="3" DTS:Name="ExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecutionResult">-1</DTS:Property>
+      <DTS:Property DTS:Name="FailPackageOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="FailParentOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="MaxErrorCount">1</DTS:Property>
+      <DTS:Property DTS:Name="ISOLevel">1048576</DTS:Property>
+      <DTS:Property DTS:Name="TransactionOption">1</DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Store Source Row Count</DTS:Property>
+      <DTS:Property DTS:Name="DisableEventHandlers">0</DTS:Property>
+      <DTS:Property DTS:Name="LocaleID">-1</DTS:Property>
+      <DTS:Property DTS:Name="ExecutionAddress"></DTS:Property>
+      <DTS:Property DTS:Name="ExecutionLocation">0</DTS:Property>
+      <DTS:Property DTS:Name="CreationName">Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</DTS:Property>
+      <DTS:Property DTS:Name="TaskContact">Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1</DTS:Property>
+      <DTS:LoggingOptions>
+        <DTS:Property DTS:Name="LoggingMode">0</DTS:Property>
+        <DTS:Property DTS:Name="FilterKind">1</DTS:Property>
+        <DTS:Property DTS:DataType="8" DTS:Name="EventFilter"></DTS:Property>
+      </DTS:LoggingOptions>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:BypassPrepare="true" SQLTask:CodePage="1252" SQLTask:Connection="{0656DA80-7749-4B2F-9B00-C42C21CE9EA9}" SQLTask:IsStoredProc="false" SQLTask:ResultType="ResultSetType_None" SQLTask:SqlStatementSource="exec Runtime_UpdatetMirrorTableExecutionSourceRowCnt ?, ?;" SQLTask:SqlStmtSourceType="DirectInput" SQLTask:TimeOut="0" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding SQLTask:DataType="20" SQLTask:DtsVariableName="User::TableExecutionIdLocal" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="0"></SQLTask:ParameterBinding>
+          <SQLTask:ParameterBinding SQLTask:DataType="20" SQLTask:DtsVariableName="User::RCSource" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="1" SQLTask:ParameterSize="0"></SQLTask:ParameterBinding>
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="Disabled">0</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{ABF0E632-37A3-4A30-AF8C-0C4F5C8AF9D4}</DTS:Property>
+      <DTS:Property DTS:DataType="3" DTS:Name="ExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecutionResult">-1</DTS:Property>
+      <DTS:Property DTS:Name="FailPackageOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="FailParentOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="MaxErrorCount">1</DTS:Property>
+      <DTS:Property DTS:Name="ISOLevel">1048576</DTS:Property>
+      <DTS:Property DTS:Name="TransactionOption">1</DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Truncate Destination Table</DTS:Property>
+      <DTS:Property DTS:Name="DisableEventHandlers">0</DTS:Property>
+      <DTS:Property DTS:Name="LocaleID">-1</DTS:Property>
+      <DTS:Property DTS:Name="ExecutionAddress"></DTS:Property>
+      <DTS:Property DTS:Name="ExecutionLocation">0</DTS:Property>
+      <DTS:Property DTS:Name="CreationName">Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</DTS:Property>
+      <DTS:Property DTS:Name="TaskContact">Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1</DTS:Property>
+      <DTS:LoggingOptions>
+        <DTS:Property DTS:Name="LoggingMode">0</DTS:Property>
+        <DTS:Property DTS:Name="FilterKind">1</DTS:Property>
+        <DTS:Property DTS:DataType="8" DTS:Name="EventFilter"></DTS:Property>
+      </DTS:LoggingOptions>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:BypassPrepare="true" SQLTask:CodePage="1252" SQLTask:Connection="{DCF79522-5B32-42EA-ADC0-B3B9390CDF74}" SQLTask:IsStoredProc="false" SQLTask:ResultType="ResultSetType_None" SQLTask:SqlStatementSource="User::QueryTruncateDestination" SQLTask:SqlStmtSourceType="Variable" SQLTask:TimeOut="0" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:ExecutableType="SSIS.Pipeline.2">
+      <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="Disabled">0</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{49669BF6-37E7-4E9D-A34D-EF71BDA738C0}</DTS:Property>
+      <DTS:Property DTS:DataType="3" DTS:Name="ExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecutionResult">-1</DTS:Property>
+      <DTS:Property DTS:Name="FailPackageOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="FailParentOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="MaxErrorCount">1</DTS:Property>
+      <DTS:Property DTS:Name="ISOLevel">1048576</DTS:Property>
+      <DTS:Property DTS:Name="TransactionOption">1</DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Data Flow</DTS:Property>
+      <DTS:Property DTS:Name="DisableEventHandlers">0</DTS:Property>
+      <DTS:Property DTS:Name="LocaleID">-1</DTS:Property>
+      <DTS:Property DTS:Name="ExecutionAddress"></DTS:Property>
+      <DTS:Property DTS:Name="ExecutionLocation">0</DTS:Property>
+      <DTS:Property DTS:Name="CreationName">SSIS.Pipeline.2</DTS:Property>
+      <DTS:Property DTS:Name="TaskContact">Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v10; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1</DTS:Property>
+      <DTS:LoggingOptions>
+        <DTS:Property DTS:Name="LoggingMode">0</DTS:Property>
+        <DTS:Property DTS:Name="FilterKind">1</DTS:Property>
+        <DTS:Property DTS:DataType="8" DTS:Name="EventFilter"></DTS:Property>
+      </DTS:LoggingOptions>
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" description="pipelineXml" id="0" name="pipelineXml">
+          <components>
+            <component id="1" name="Source" componentClassID="{BCEFE59B-6819-47F7-A125-63753B33ABB7}" description="" localeId="-1" usesDispositions="true" validateExternalMetadata="False" version="7" pipelineVersion="0" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7">
+              <properties>
+                <property id="2" name="CommandTimeout" dataType="System.Int32" state="default" isArray="false" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">0</property>
+                <property id="3" name="OpenRowset" dataType="System.String" state="default" isArray="false" description="Specifies the name of the database object used to open a rowset." typeConverter="" UITypeEditor="" containsID="false" expressionType="None" />
+                <property id="4" name="OpenRowsetVariable" dataType="System.String" state="default" isArray="false" description="Specifies the variable that contains the name of the database object used to open a rowset." typeConverter="" UITypeEditor="" containsID="false" expressionType="None" />
+                <property id="5" name="SqlCommand" dataType="System.String" state="default" isArray="false" description="The SQL command to be executed." typeConverter="" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" containsID="false" expressionType="None" />
+                <property id="6" name="SqlCommandVariable" dataType="System.String" state="default" isArray="false" description="The variable that contains the SQL command to be executed." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">User::ExpressionSelectData</property>
+                <property id="7" name="DefaultCodePage" dataType="System.Int32" state="default" isArray="false" description="Specifies the column code page to use when code page information is unavailable from the data source." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">1252</property>
+                <property id="8" name="AlwaysUseDefaultCodePage" dataType="System.Boolean" state="default" isArray="false" description="Forces the use of the DefaultCodePage property value when describing character data." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property>
+                <property id="9" name="AccessMode" dataType="System.Int32" state="default" isArray="false" description="Specifies the mode used to access the database." typeConverter="AccessMode" UITypeEditor="" containsID="false" expressionType="None">3</property>
+                <property id="10" name="ParameterMapping" dataType="System.String" state="default" isArray="false" description="The mappings between the parameters in the SQL command and variables." typeConverter="" UITypeEditor="" containsID="false" expressionType="None" />
+              </properties>
+              <connections>
+                <connection connectionManagerID="{8D2EADA4-CEF4-4C77-9EC4-2354C4549432}" description="The OLE DB runtime connection used to access the database." id="11" name="OleDbConnection"></connection>
+              </connections>
+              <outputs>
+                <output id="12" name="Output" description="" exclusionGroup="0" synchronousInputId="0" deleteOutputOnPathDetached="false" hasSideEffects="false" dangling="false" isErrorOut="false" isSorted="false" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed">
+                  <outputColumns>
+                    <outputColumn id="18" name="alchemyproductid" description="" lineageId="18" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="14" mappedColumnId="0" />
+                    <outputColumn id="20" name="ndc9" description="" lineageId="20" precision="0" scale="0" length="10" dataType="wstr" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="15" mappedColumnId="0" />
+                    <outputColumn id="22" name="productnamelong" description="" lineageId="22" precision="0" scale="0" length="0" dataType="nText" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="16" mappedColumnId="0" />
+                    <outputColumn id="24" name="genericname" description="" lineageId="24" precision="0" scale="0" length="0" dataType="nText" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="17" mappedColumnId="0" />
+                  </outputColumns>
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn codePage="0" dataType="i4" description="" id="14" length="0" mappedColumnId="0" name="alchemyproductid" precision="0" scale="0"></externalMetadataColumn>
+                    <externalMetadataColumn codePage="0" dataType="wstr" description="" id="15" length="10" mappedColumnId="0" name="ndc9" precision="0" scale="0"></externalMetadataColumn>
+                    <externalMetadataColumn codePage="0" dataType="nText" description="" id="16" length="0" mappedColumnId="0" name="productnamelong" precision="0" scale="0"></externalMetadataColumn>
+                    <externalMetadataColumn codePage="0" dataType="nText" description="" id="17" length="0" mappedColumnId="0" name="genericname" precision="0" scale="0"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                </output>
+                <output id="13" name="Error" description="" exclusionGroup="0" synchronousInputId="0" deleteOutputOnPathDetached="false" hasSideEffects="false" dangling="false" isErrorOut="true" isSorted="false" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed">
+                  <outputColumns>
+                    <outputColumn id="19" name="alchemyproductid" description="" lineageId="19" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0" />
+                    <outputColumn id="21" name="ndc9" description="" lineageId="21" precision="0" scale="0" length="10" dataType="wstr" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0" />
+                    <outputColumn id="23" name="productnamelong" description="" lineageId="23" precision="0" scale="0" length="0" dataType="nText" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0" />
+                    <outputColumn id="25" name="genericname" description="" lineageId="25" precision="0" scale="0" length="0" dataType="nText" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0" />
+                    <outputColumn id="26" name="ErrorCode" description="" lineageId="26" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="1" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0" />
+                    <outputColumn id="27" name="ErrorColumn" description="" lineageId="27" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="2" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0" />
+                  </outputColumns>
+                  <externalMetadataColumns isUsed="False"></externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+            <component id="28" name="ODD-BulkLoad" componentClassID="{5A0B62E8-D91D-49F5-94A5-7BE58DE508F0}" description="" localeId="-1" usesDispositions="true" validateExternalMetadata="False" version="4" pipelineVersion="0" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4">
+              <properties>
+                <property id="29" name="CommandTimeout" dataType="System.Int32" state="default" isArray="false" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">0</property>
+                <property id="30" name="OpenRowset" dataType="System.String" state="default" isArray="false" description="Specifies the name of the database object used to open a rowset." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">ingredient_list</property>
+                <property id="31" name="OpenRowsetVariable" dataType="System.String" state="default" isArray="false" description="Specifies the variable that contains the name of the database object used to open a rowset." typeConverter="" UITypeEditor="" containsID="false" expressionType="None" />
+                <property id="32" name="SqlCommand" dataType="System.String" state="default" isArray="false" description="The SQL command to be executed." typeConverter="" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" containsID="false" expressionType="None" />
+                <property id="33" name="DefaultCodePage" dataType="System.Int32" state="default" isArray="false" description="Specifies the column code page to use when code page information is unavailable from the data source." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">1252</property>
+                <property id="34" name="AlwaysUseDefaultCodePage" dataType="System.Boolean" state="default" isArray="false" description="Forces the use of the DefaultCodePage property value when describing character data." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property>
+                <property id="35" name="AccessMode" dataType="System.Int32" state="default" isArray="false" description="Specifies the mode used to access the database." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">3</property>
+                <property id="36" name="FastLoadKeepIdentity" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">true</property>
+                <property id="37" name="FastLoadKeepNulls" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">true</property>
+                <property id="38" name="FastLoadOptions" dataType="System.String" state="default" isArray="false" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property id="39" name="FastLoadMaxInsertCommitSize" dataType="System.Int32" state="default" isArray="false" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">2147483647</property>
+              </properties>
+              <connections>
+                <connection connectionManagerID="{DCF79522-5B32-42EA-ADC0-B3B9390CDF74}" description="The OLE DB runtime connection used to access the database." id="40" name="OleDbConnection"></connection>
+              </connections>
+              <inputs>
+                <input id="41" name="Source_Output_ODD-BulkLoad" description="" hasSideEffects="true" dangling="false" errorOrTruncationOperation="Insert" errorRowDisposition="RedirectRow" truncationRowDisposition="NotUsed">
+                  <inputColumns>
+                    <inputColumn id="47" name="" description="" lineageId="18" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="43" mappedColumnId="0" />
+                    <inputColumn id="48" name="" description="" lineageId="20" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="44" mappedColumnId="0" />
+                    <inputColumn id="49" name="" description="" lineageId="22" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="45" mappedColumnId="0" />
+                    <inputColumn id="50" name="" description="" lineageId="24" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="46" mappedColumnId="0" />
+                  </inputColumns>
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn codePage="0" dataType="i4" description="" id="43" length="0" mappedColumnId="0" name="alchemyproductid" precision="0" scale="0"></externalMetadataColumn>
+                    <externalMetadataColumn codePage="0" dataType="wstr" description="" id="44" length="10" mappedColumnId="0" name="ndc9" precision="0" scale="0"></externalMetadataColumn>
+                    <externalMetadataColumn codePage="0" dataType="nText" description="" id="45" length="0" mappedColumnId="0" name="productnamelong" precision="0" scale="0"></externalMetadataColumn>
+                    <externalMetadataColumn codePage="0" dataType="nText" description="" id="46" length="0" mappedColumnId="0" name="genericname" precision="0" scale="0"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output id="42" name="Error" description="" exclusionGroup="1" synchronousInputId="41" deleteOutputOnPathDetached="false" hasSideEffects="false" dangling="false" isErrorOut="true" isSorted="false" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed">
+                  <outputColumns>
+                    <outputColumn id="51" name="ErrorCode" description="" lineageId="51" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="1" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0" />
+                    <outputColumn id="52" name="ErrorColumn" description="" lineageId="52" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="2" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0" />
+                  </outputColumns>
+                  <externalMetadataColumns isUsed="False"></externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+            <component id="53" name="ODD-RowByRow" componentClassID="{5A0B62E8-D91D-49F5-94A5-7BE58DE508F0}" description="" localeId="-1" usesDispositions="true" validateExternalMetadata="False" version="4" pipelineVersion="0" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4">
+              <properties>
+                <property id="54" name="CommandTimeout" dataType="System.Int32" state="default" isArray="false" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">0</property>
+                <property id="55" name="OpenRowset" dataType="System.String" state="default" isArray="false" description="Specifies the name of the database object used to open a rowset." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">ingredient_list</property>
+                <property id="56" name="OpenRowsetVariable" dataType="System.String" state="default" isArray="false" description="Specifies the variable that contains the name of the database object used to open a rowset." typeConverter="" UITypeEditor="" containsID="false" expressionType="None" />
+                <property id="57" name="SqlCommand" dataType="System.String" state="default" isArray="false" description="The SQL command to be executed." typeConverter="" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" containsID="false" expressionType="None" />
+                <property id="58" name="DefaultCodePage" dataType="System.Int32" state="default" isArray="false" description="Specifies the column code page to use when code page information is unavailable from the data source." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">1252</property>
+                <property id="59" name="AlwaysUseDefaultCodePage" dataType="System.Boolean" state="default" isArray="false" description="Forces the use of the DefaultCodePage property value when describing character data." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property>
+                <property id="60" name="AccessMode" dataType="System.Int32" state="default" isArray="false" description="Specifies the mode used to access the database." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">0</property>
+                <property id="61" name="FastLoadKeepIdentity" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">true</property>
+                <property id="62" name="FastLoadKeepNulls" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">true</property>
+                <property id="63" name="FastLoadOptions" dataType="System.String" state="default" isArray="false" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." typeConverter="" UITypeEditor="" containsID="false" expressionType="None" />
+                <property id="64" name="FastLoadMaxInsertCommitSize" dataType="System.Int32" state="default" isArray="false" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">2147483647</property>
+              </properties>
+              <connections>
+                <connection connectionManagerID="{DCF79522-5B32-42EA-ADC0-B3B9390CDF74}" description="The OLE DB runtime connection used to access the database." id="65" name="OleDbConnection"></connection>
+              </connections>
+              <inputs>
+                <input id="66" name="ODD-BulkLoad_Error_ODD-RowByRow" description="" hasSideEffects="true" dangling="false" errorOrTruncationOperation="Insert" errorRowDisposition="RedirectRow" truncationRowDisposition="NotUsed">
+                  <inputColumns>
+                    <inputColumn id="72" name="" description="" lineageId="18" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="68" mappedColumnId="0" />
+                    <inputColumn id="73" name="" description="" lineageId="20" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="69" mappedColumnId="0" />
+                    <inputColumn id="74" name="" description="" lineageId="22" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="70" mappedColumnId="0" />
+                    <inputColumn id="75" name="" description="" lineageId="24" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="71" mappedColumnId="0" />
+                  </inputColumns>
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn codePage="0" dataType="i4" description="" id="68" length="0" mappedColumnId="0" name="alchemyproductid" precision="0" scale="0"></externalMetadataColumn>
+                    <externalMetadataColumn codePage="0" dataType="wstr" description="" id="69" length="10" mappedColumnId="0" name="ndc9" precision="0" scale="0"></externalMetadataColumn>
+                    <externalMetadataColumn codePage="0" dataType="nText" description="" id="70" length="0" mappedColumnId="0" name="productnamelong" precision="0" scale="0"></externalMetadataColumn>
+                    <externalMetadataColumn codePage="0" dataType="nText" description="" id="71" length="0" mappedColumnId="0" name="genericname" precision="0" scale="0"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output id="67" name="Error" description="" exclusionGroup="1" synchronousInputId="66" deleteOutputOnPathDetached="false" hasSideEffects="false" dangling="false" isErrorOut="true" isSorted="false" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed">
+                  <outputColumns>
+                    <outputColumn id="76" name="ErrorCode" description="" lineageId="76" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="1" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0" />
+                    <outputColumn id="77" name="ErrorColumn" description="" lineageId="77" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="2" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0" />
+                  </outputColumns>
+                  <externalMetadataColumns isUsed="False"></externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path description="" endId="41" id="78" name="Source_Output_ODD-BulkLoad" startId="12"></path>
+            <path description="" endId="66" id="79" name="ODD-BulkLoad_Error_ODD-RowByRow" startId="42"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="Disabled">0</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{A51E0DF3-30DB-42F9-8143-EB8440A9C1C3}</DTS:Property>
+      <DTS:Property DTS:DataType="3" DTS:Name="ExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecutionResult">-1</DTS:Property>
+      <DTS:Property DTS:Name="FailPackageOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="FailParentOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="MaxErrorCount">1</DTS:Property>
+      <DTS:Property DTS:Name="ISOLevel">1048576</DTS:Property>
+      <DTS:Property DTS:Name="TransactionOption">1</DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Get Destination Row Count</DTS:Property>
+      <DTS:Property DTS:Name="DisableEventHandlers">0</DTS:Property>
+      <DTS:Property DTS:Name="LocaleID">-1</DTS:Property>
+      <DTS:Property DTS:Name="ExecutionAddress"></DTS:Property>
+      <DTS:Property DTS:Name="ExecutionLocation">0</DTS:Property>
+      <DTS:Property DTS:Name="CreationName">Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</DTS:Property>
+      <DTS:Property DTS:Name="TaskContact">Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1</DTS:Property>
+      <DTS:LoggingOptions>
+        <DTS:Property DTS:Name="LoggingMode">0</DTS:Property>
+        <DTS:Property DTS:Name="FilterKind">1</DTS:Property>
+        <DTS:Property DTS:DataType="8" DTS:Name="EventFilter"></DTS:Property>
+      </DTS:LoggingOptions>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:BypassPrepare="true" SQLTask:CodePage="1252" SQLTask:Connection="{DCF79522-5B32-42EA-ADC0-B3B9390CDF74}" SQLTask:IsStoredProc="false" SQLTask:ResultType="ResultSetType_SingleRow" SQLTask:SqlStatementSource="User::QueryCountDestinationRows" SQLTask:SqlStmtSourceType="Variable" SQLTask:TimeOut="0" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding SQLTask:DtsVariableName="User::RCDestination" SQLTask:ResultName="RowCnt"></SQLTask:ResultBinding>
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="Disabled">0</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{76186033-620C-4108-908A-C9D610ABC440}</DTS:Property>
+      <DTS:Property DTS:DataType="3" DTS:Name="ExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecutionResult">-1</DTS:Property>
+      <DTS:Property DTS:Name="FailPackageOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="FailParentOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="MaxErrorCount">1</DTS:Property>
+      <DTS:Property DTS:Name="ISOLevel">1048576</DTS:Property>
+      <DTS:Property DTS:Name="TransactionOption">1</DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Store Destination Row Count</DTS:Property>
+      <DTS:Property DTS:Name="DisableEventHandlers">0</DTS:Property>
+      <DTS:Property DTS:Name="LocaleID">-1</DTS:Property>
+      <DTS:Property DTS:Name="ExecutionAddress"></DTS:Property>
+      <DTS:Property DTS:Name="ExecutionLocation">0</DTS:Property>
+      <DTS:Property DTS:Name="CreationName">Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</DTS:Property>
+      <DTS:Property DTS:Name="TaskContact">Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1</DTS:Property>
+      <DTS:LoggingOptions>
+        <DTS:Property DTS:Name="LoggingMode">0</DTS:Property>
+        <DTS:Property DTS:Name="FilterKind">1</DTS:Property>
+        <DTS:Property DTS:DataType="8" DTS:Name="EventFilter"></DTS:Property>
+      </DTS:LoggingOptions>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:BypassPrepare="true" SQLTask:CodePage="1252" SQLTask:Connection="{0656DA80-7749-4B2F-9B00-C42C21CE9EA9}" SQLTask:IsStoredProc="false" SQLTask:ResultType="ResultSetType_None" SQLTask:SqlStatementSource="exec Runtime_UpdatetMirrorTableExecutionDestinationRowCnt ?, ?;" SQLTask:SqlStmtSourceType="DirectInput" SQLTask:TimeOut="0" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding SQLTask:DataType="20" SQLTask:DtsVariableName="User::TableExecutionIdLocal" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="0" SQLTask:ParameterSize="0"></SQLTask:ParameterBinding>
+          <SQLTask:ParameterBinding SQLTask:DataType="20" SQLTask:DtsVariableName="User::RCDestination" SQLTask:ParameterDirection="Input" SQLTask:ParameterName="1" SQLTask:ParameterSize="0"></SQLTask:ParameterBinding>
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <DTS:Property DTS:Name="DelayValidation">-1</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="Disabled">0</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{A698778F-FB6E-4E74-AB2D-725BA8D7E48A}</DTS:Property>
+      <DTS:Property DTS:DataType="3" DTS:Name="ExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecValue">0</DTS:Property>
+      <DTS:Property DTS:Name="ForceExecutionResult">-1</DTS:Property>
+      <DTS:Property DTS:Name="FailPackageOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="FailParentOnFailure">0</DTS:Property>
+      <DTS:Property DTS:Name="MaxErrorCount">1</DTS:Property>
+      <DTS:Property DTS:Name="ISOLevel">1048576</DTS:Property>
+      <DTS:Property DTS:Name="TransactionOption">1</DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Clear Determined Rows 2</DTS:Property>
+      <DTS:Property DTS:Name="DisableEventHandlers">0</DTS:Property>
+      <DTS:Property DTS:Name="LocaleID">-1</DTS:Property>
+      <DTS:Property DTS:Name="ExecutionAddress"></DTS:Property>
+      <DTS:Property DTS:Name="ExecutionLocation">0</DTS:Property>
+      <DTS:Property DTS:Name="CreationName">Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</DTS:Property>
+      <DTS:Property DTS:Name="TaskContact">Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1</DTS:Property>
+      <DTS:LoggingOptions>
+        <DTS:Property DTS:Name="LoggingMode">0</DTS:Property>
+        <DTS:Property DTS:Name="FilterKind">1</DTS:Property>
+        <DTS:Property DTS:DataType="8" DTS:Name="EventFilter"></DTS:Property>
+      </DTS:LoggingOptions>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:BypassPrepare="true" SQLTask:CodePage="1252" SQLTask:Connection="{8D2EADA4-CEF4-4C77-9EC4-2354C4549432}" SQLTask:IsStoredProc="false" SQLTask:ResultType="ResultSetType_None" SQLTask:SqlStatementSource="User::QueryDeleteMirrorData" SQLTask:SqlStmtSourceType="Variable" SQLTask:TimeOut="0" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:PrecedenceConstraint>
+      <DTS:Executable DTS:IsFrom="-1" IDREF="{DB48C6CE-DF0B-467D-BBA9-0802951155B6}"></DTS:Executable>
+      <DTS:Executable DTS:IsFrom="0" IDREF="{27BF6C96-4A78-4AA2-8AD6-9790F4DD94E2}"></DTS:Executable>
+      <DTS:Property DTS:Name="Value">0</DTS:Property>
+      <DTS:Property DTS:Name="EvalOp">2</DTS:Property>
+      <DTS:Property DTS:Name="LogicalAnd">-1</DTS:Property>
+      <DTS:Property DTS:Name="Expression"></DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Constraint_SQL-GetExecutionDetails-_To_Clear Determined Rows 1</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{00AE5754-B2E8-4627-8BF9-EA3659576C36}</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    </DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint>
+      <DTS:Executable DTS:IsFrom="-1" IDREF="{27BF6C96-4A78-4AA2-8AD6-9790F4DD94E2}"></DTS:Executable>
+      <DTS:Executable DTS:IsFrom="0" IDREF="{F18D7D5E-FC8E-493C-A468-BDA3876A5617}"></DTS:Executable>
+      <DTS:Property DTS:Name="Value">0</DTS:Property>
+      <DTS:Property DTS:Name="EvalOp">2</DTS:Property>
+      <DTS:Property DTS:Name="LogicalAnd">-1</DTS:Property>
+      <DTS:Property DTS:Name="Expression"></DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Constraint_Clear Determined Rows 1_To_Determine Rows</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{9733FF2B-1A6C-4383-BC63-721BD8E0E923}</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    </DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint>
+      <DTS:Executable DTS:IsFrom="-1" IDREF="{F18D7D5E-FC8E-493C-A468-BDA3876A5617}"></DTS:Executable>
+      <DTS:Executable DTS:IsFrom="0" IDREF="{0770891C-8F1D-4306-865A-F556C198C217}"></DTS:Executable>
+      <DTS:Property DTS:Name="Value">0</DTS:Property>
+      <DTS:Property DTS:Name="EvalOp">2</DTS:Property>
+      <DTS:Property DTS:Name="LogicalAnd">-1</DTS:Property>
+      <DTS:Property DTS:Name="Expression"></DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Constraint_Determine Rows_To_Get Source Row Count</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{8FA0D37B-9E8E-4B9C-9967-E9EE607B07C1}</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    </DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint>
+      <DTS:Executable DTS:IsFrom="-1" IDREF="{0770891C-8F1D-4306-865A-F556C198C217}"></DTS:Executable>
+      <DTS:Executable DTS:IsFrom="0" IDREF="{232A30B9-7B64-406B-B14A-2B262D627F86}"></DTS:Executable>
+      <DTS:Property DTS:Name="Value">0</DTS:Property>
+      <DTS:Property DTS:Name="EvalOp">2</DTS:Property>
+      <DTS:Property DTS:Name="LogicalAnd">-1</DTS:Property>
+      <DTS:Property DTS:Name="Expression"></DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Constraint_Get Source Row Count_To_Store Source Row Count</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{067753A7-9AFA-4B38-94B2-39B00000632A}</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    </DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint>
+      <DTS:Executable DTS:IsFrom="-1" IDREF="{232A30B9-7B64-406B-B14A-2B262D627F86}"></DTS:Executable>
+      <DTS:Executable DTS:IsFrom="0" IDREF="{ABF0E632-37A3-4A30-AF8C-0C4F5C8AF9D4}"></DTS:Executable>
+      <DTS:Property DTS:Name="Value">0</DTS:Property>
+      <DTS:Property DTS:Name="EvalOp">2</DTS:Property>
+      <DTS:Property DTS:Name="LogicalAnd">-1</DTS:Property>
+      <DTS:Property DTS:Name="Expression"></DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Constraint_Store Source Row Count_To_Truncate Destination Table</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{554D6FE2-358E-4128-BD2D-A7388395D65B}</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    </DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint>
+      <DTS:Executable DTS:IsFrom="-1" IDREF="{ABF0E632-37A3-4A30-AF8C-0C4F5C8AF9D4}"></DTS:Executable>
+      <DTS:Executable DTS:IsFrom="0" IDREF="{49669BF6-37E7-4E9D-A34D-EF71BDA738C0}"></DTS:Executable>
+      <DTS:Property DTS:Name="Value">0</DTS:Property>
+      <DTS:Property DTS:Name="EvalOp">2</DTS:Property>
+      <DTS:Property DTS:Name="LogicalAnd">-1</DTS:Property>
+      <DTS:Property DTS:Name="Expression"></DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Constraint_Truncate Destination Table_To_Data Flow</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{66B6126C-7087-4244-9DEB-783D7ADAD033}</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    </DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint>
+      <DTS:Executable DTS:IsFrom="-1" IDREF="{49669BF6-37E7-4E9D-A34D-EF71BDA738C0}"></DTS:Executable>
+      <DTS:Executable DTS:IsFrom="0" IDREF="{A51E0DF3-30DB-42F9-8143-EB8440A9C1C3}"></DTS:Executable>
+      <DTS:Property DTS:Name="Value">0</DTS:Property>
+      <DTS:Property DTS:Name="EvalOp">2</DTS:Property>
+      <DTS:Property DTS:Name="LogicalAnd">-1</DTS:Property>
+      <DTS:Property DTS:Name="Expression"></DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Constraint_Data Flow_To_Get Destination Row Count</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{88B5592C-B23E-4635-9A2C-A40F4DC16DE1}</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    </DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint>
+      <DTS:Executable DTS:IsFrom="-1" IDREF="{A51E0DF3-30DB-42F9-8143-EB8440A9C1C3}"></DTS:Executable>
+      <DTS:Executable DTS:IsFrom="0" IDREF="{76186033-620C-4108-908A-C9D610ABC440}"></DTS:Executable>
+      <DTS:Property DTS:Name="Value">0</DTS:Property>
+      <DTS:Property DTS:Name="EvalOp">2</DTS:Property>
+      <DTS:Property DTS:Name="LogicalAnd">-1</DTS:Property>
+      <DTS:Property DTS:Name="Expression"></DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Constraint_Get Destination Row Count_To_Store Destination Row Count</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{9FE34DEC-06B4-4D70-83F2-3994CF8363CE}</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    </DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint>
+      <DTS:Executable DTS:IsFrom="-1" IDREF="{76186033-620C-4108-908A-C9D610ABC440}"></DTS:Executable>
+      <DTS:Executable DTS:IsFrom="0" IDREF="{A698778F-FB6E-4E74-AB2D-725BA8D7E48A}"></DTS:Executable>
+      <DTS:Property DTS:Name="Value">0</DTS:Property>
+      <DTS:Property DTS:Name="EvalOp">2</DTS:Property>
+      <DTS:Property DTS:Name="LogicalAnd">-1</DTS:Property>
+      <DTS:Property DTS:Name="Expression"></DTS:Property>
+      <DTS:Property DTS:Name="ObjectName">Constraint_Store Destination Row Count_To_Clear Determined Rows 2</DTS:Property>
+      <DTS:Property DTS:Name="DTSID">{A8442D22-1C9E-4B51-9C52-4BF498D166BF}</DTS:Property>
+      <DTS:Property DTS:Name="Description"></DTS:Property>
+      <DTS:Property DTS:Name="CreationName"></DTS:Property>
+    </DTS:PrecedenceConstraint>
+  </DTS:Executable>
+</DTS:Executable>

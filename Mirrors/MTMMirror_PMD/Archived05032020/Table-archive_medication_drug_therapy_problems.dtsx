@@ -1,0 +1,1790 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/9/2019 8:48:41 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SQLRDP"
+  DTS:CreatorName="Joel.Denowski"
+  DTS:DelayValidation="True"
+  DTS:DTSID="{6AAE763F-82ED-4FB3-8E0F-FE6E579BE0E9}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:FailPackageOnFailure="True"
+  DTS:LastModifiedProductVersion="15.0.0900.40"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Table-archive_medication_drug_therapy_problems"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{F3D68571-9E77-4CF8-A897-4D93D675E096}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[destination_conn]"
+      DTS:CreationName="OLEDB"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{5D46F533-C05E-4F0C-A6E1-7218BC357B33}"
+      DTS:ObjectName="destination_conn">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::DstConnectionStringLocal]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=SQLDW;Initial Catalog=MTMMirrorPMD_Stage;Provider=SQLNCLI10.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[meta_conn]"
+      DTS:CreationName="OLEDB"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{51F6CE25-3C10-4111-BB15-2A29B9BBACAA}"
+      DTS:ObjectName="meta_conn">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::MetaBaseConnectionStringLocal]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Server=SQLDW;Initial Catalog=MTMMirror_Meta;Provider=SQLNCLI10;Integrated Security=SSPI;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[source_conn]"
+      DTS:CreationName="OLEDB"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{A29206FB-1424-4D3A-A9D2-8FD5ACE21C44}"
+      DTS:ObjectName="source_conn">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::SrcConnectionStringLocal]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=pmd_prod.pg.pharmmd.com;User ID=sqluser;Initial Catalog=pharmmd_pmd_prod;Provider=PGNP.1;Persist Security Info=True; Extended Properties=&quot;PORT=5432;COMMAND_TIMEOUT=0;SQLSERVER=2008;SSL=allow;CNV_SPECIAL_FLTVAL=ON;ZERO_TS_FRACTION=ON;BULK_METHOD=COPY;&quot;;Mode=Read;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"></DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{35658A33-A651-4822-A6E1-1D30C1BD2DFE}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BaseQuery"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">select  x.* from (select S.* from archive_medication_drug_therapy_problems S  ) x;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C4F2DFC1-33F1-4488-9EE7-B09382130A15}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ColumnsAsList"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{37DE41B2-58B8-4608-B96E-D231A9F0E3A0}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DstConnectionStringLocal"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">Data Source=SQLDW;Initial Catalog=MTMMirrorPMD_Stage;Provider=SQLNCLI10.1;Integrated Security=SSPI;Auto Translate=False;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BDAE4E87-DEEE-404C-B524-A736ACD703C6}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::LimitDataLocal] == 0 ?  @[User::QueryDetermineRows] : @[User::QueryDetermineRowsLimited]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExpressionDetermineRows"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT 1 as myId;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AF4F2BF5-279D-43ED-A0DF-3B2E87014227}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::LimitDataLocal] == 0 ?  @[User::QuerySelectCount] : @[User::QuerySelectCountLimited]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExpressionSelectCount"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">select  COUNT(x.rowId) AS rowCnt from (select 1 AS rowId from archive_medication_drug_therapy_problems S  ) x;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F54E4F2E-9D58-494E-972A-66CF134F8A30}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::LimitDataLocal] == 0 ?  @[User::QuerySelectData] : @[User::QuerySelectDataLimited]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExpressionSelectData"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">select  x.* from (select S.* from archive_medication_drug_therapy_problems S  ) x;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E0A0B3B1-7658-4403-91AA-7641007F077C}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="LimitDataLocal"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C0C3AF64-D464-4DA2-9841-4BE339FD693D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="MetaBaseConnectionStringLocal"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">Provider=SQLNCLI10;Server=SQLDW;Initial Catalog=MTMMirror_Meta;Integrated Security=SSPI;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3596D381-CD0E-4192-86C0-C2C9D80711F0}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="MirrorExecutionId"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4B9116E1-790A-40D1-9950-97783EDC92FE}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="MirrorId"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="20">27</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{15DAA1A1-BC90-47E8-A7B6-A17F46016E14}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="MirrorKey"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">PMD_PROD</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{78B0EECA-B4DD-4ECC-930D-583528714BE8}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="MirrorTableId"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="20">15357</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E2B15155-FBC1-4D4C-82BE-EC1417530B7A}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageSubfolderLocal"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{65C1B4CE-D773-47F9-A3B0-7E67FDCAF843}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QueryCountDestinationRows"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT convert(bigint, count(1)) as RowCnt from archive_medication_drug_therapy_problems S WITH (NOLOCK);</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{654848BF-F4A4-4099-A4C7-2DF8C2FE986B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QueryDeleteMirrorData"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">DELETE FROM x_mirror_data WHERE tableName = 'archive_medication_drug_therapy_problems';</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4D28D5D0-7EC3-4000-BEB7-CE744AF44170}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QueryDetermineRows"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT 1 as myId;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BE3EB179-2118-41F9-9B41-0345F92F1953}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QueryDetermineRowsLimited"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT 1 as myId limit 10;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3FDC291E-3365-4AD3-8354-09F1D0349591}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QuerySelectCount"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">select  COUNT(x.rowId) AS rowCnt from (select 1 AS rowId from archive_medication_drug_therapy_problems S  ) x;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BACFC495-DA58-424A-9817-C1ADEE1E257D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QuerySelectCountLimited"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">select  COUNT(x.rowId) AS rowCnt from (select 1 AS rowId from archive_medication_drug_therapy_problems S  limit 10) x;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{64014679-AD15-406E-A727-359C6BC3FCDB}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QuerySelectData"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">select  x.* from (select S.* from archive_medication_drug_therapy_problems S  ) x;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{24FF63AF-4566-489C-9B8A-81A1F41125EB}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QuerySelectDataLimited"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">select  x.* from (select S.* from archive_medication_drug_therapy_problems S  limit 10) x;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1B47048B-4404-429A-9B2B-E8C38DF2126D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QueryTruncateDestination"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">TRUNCATE TABLE archive_medication_drug_therapy_problems; DELETE archive_medication_drug_therapy_problems;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{10CD2C69-8BCD-4888-96EF-D8DBD6A81C37}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="RCDestination">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C9897794-1760-4A2C-9DB5-20E230A6FE01}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="RCEnd">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A5D71DA2-2B2D-4C04-AAA6-C22C95826454}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="RCError">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7C609213-FB7E-4D10-B6AB-CAB56013F608}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="RCErrorConvert">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8C4512D2-9D4E-4646-847A-A901E13A7513}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="RCExtract">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{80C074DF-5BD8-4B19-84C0-A4D43381CBFC}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="RCInserted">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{530C0F2B-46E8-4227-B7A5-B0010BD669F9}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="RCSource">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7381ABB2-9464-4CB5-A58C-8AA73DAA3302}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="RCStart">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B1F47F47-7F56-4D00-A2EC-3B801A31394E}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::LimitDataLocal] == 0 ?  @[User::BaseQuery] : @[User::BaseQuery] + &quot; limit 10&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceQuery"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">select  x.* from (select S.* from archive_medication_drug_therapy_problems S  ) x;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6D0EE452-BF9C-4403-A21C-760D19A806D1}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceTableLocal"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">archive_medication_drug_therapy_problems</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2111A0F5-71A8-428D-97F6-B3BEC83D69E3}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SrcConnectionStringLocal"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">Data Source=pmd_prod.pg.pharmmd.com;User ID=sqluser;Initial Catalog=pharmmd_pmd_prod;Password=jTbKBdNyN3ND7w;Provider=PGNP.1;Persist Security Info=True; Extended Properties="PORT=5432;COMMAND_TIMEOUT=0;SQLSERVER=2008;SSL=allow;CNV_SPECIAL_FLTVAL=ON;ZERO_TS_FRACTION=ON;BULK_METHOD=COPY;";Mode=Read;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4FCF25C0-BFA4-4BA1-BA5A-500BE108EFBB}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="TableExecutionIdLocal">
+      <DTS:VariableValue
+        DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{CE9E7F41-FEFB-49C5-BFC7-E28DD6968EC2}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="WorkerId">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\MainContainer"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:DTSID="{636A6579-4E76-45A7-AFA8-739527789744}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="MainContainer">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\MainContainer\Clear Determined Rows 1"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:DTSID="{74FE65F4-C414-4B8F-BB29-154BAEFFE988}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Clear Determined Rows 1"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{A29206FB-1424-4D3A-A9D2-8FD5ACE21C44}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::QueryDeleteMirrorData" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\MainContainer\Clear Determined Rows 2"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:DTSID="{C36DD7D1-F5EA-4F40-A516-2029CC6BB03E}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Clear Determined Rows 2"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{A29206FB-1424-4D3A-A9D2-8FD5ACE21C44}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::QueryDeleteMirrorData" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\MainContainer\Data Flow"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:DTSID="{E8AD5625-DB28-4101-BBCC-4FAC68BF859F}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Data Flow"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v10; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              BLOBTempStoragePath=""
+              bufferTempStoragePath=""
+              version="1">
+              <components>
+                <component
+                  refId="Package\MainContainer\Data Flow\ODD-BulkLoad"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  name="ODD-BulkLoad"
+                  usesDispositions="true"
+                  validateExternalMetadata="False"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">archive_medication_drug_therapy_problems</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">true</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[destination_conn]"
+                      connectionManagerRefId="Package.ConnectionManagers[destination_conn]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="RedirectRow"
+                      hasSideEffects="true"
+                      name="Source_Output_ODD-BulkLoad">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].Columns[id]"
+                          cachedDataType="i4"
+                          cachedName="id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].Columns[medication_drug_therapy_problem_id]"
+                          cachedDataType="i4"
+                          cachedName="medication_drug_therapy_problem_id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[medication_drug_therapy_problem_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[medication_drug_therapy_problem_id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].Columns[medication_id]"
+                          cachedDataType="i4"
+                          cachedName="medication_id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[medication_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[medication_id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].Columns[drug_therapy_problem_id]"
+                          cachedDataType="i4"
+                          cachedName="drug_therapy_problem_id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[drug_therapy_problem_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[drug_therapy_problem_id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].Columns[mongo_uuid]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="mongo_uuid"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[mongo_uuid]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[mongo_uuid]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].Columns[mongo_export_path]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="mongo_export_path"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[mongo_export_path]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[mongo_export_path]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].Columns[cde_dtp_id]"
+                          cachedDataType="i4"
+                          cachedName="cde_dtp_id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[cde_dtp_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[cde_dtp_id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].Columns[pmd_cde_id]"
+                          cachedDataType="i4"
+                          cachedName="pmd_cde_id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[pmd_cde_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[pmd_cde_id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].Columns[cref_evaluation_id]"
+                          cachedDataType="i4"
+                          cachedName="cref_evaluation_id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[cref_evaluation_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[cref_evaluation_id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].Columns[created_at]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="created_at"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[created_at]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[created_at]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].Columns[updated_at]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="updated_at"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[updated_at]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[updated_at]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].Columns[hidden_at]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="hidden_at"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[hidden_at]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[hidden_at]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[id]"
+                          dataType="i4"
+                          name="id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[medication_drug_therapy_problem_id]"
+                          dataType="i4"
+                          name="medication_drug_therapy_problem_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[medication_id]"
+                          dataType="i4"
+                          name="medication_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[drug_therapy_problem_id]"
+                          dataType="i4"
+                          name="drug_therapy_problem_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[mongo_uuid]"
+                          dataType="wstr"
+                          length="255"
+                          name="mongo_uuid" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[mongo_export_path]"
+                          dataType="wstr"
+                          length="255"
+                          name="mongo_export_path" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[cde_dtp_id]"
+                          dataType="i4"
+                          name="cde_dtp_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[pmd_cde_id]"
+                          dataType="i4"
+                          name="pmd_cde_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[cref_evaluation_id]"
+                          dataType="i4"
+                          name="cref_evaluation_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[created_at]"
+                          dataType="dbTimeStamp"
+                          name="created_at" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[updated_at]"
+                          dataType="dbTimeStamp"
+                          name="updated_at" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad].ExternalColumns[hidden_at]"
+                          dataType="dbTimeStamp"
+                          name="hidden_at" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Outputs[Error]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Error"
+                      synchronousInputId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Outputs[Error].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\ODD-BulkLoad.Outputs[Error].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-BulkLoad.Outputs[Error].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\ODD-BulkLoad.Outputs[Error].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\MainContainer\Data Flow\ODD-RowByRow"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  name="ODD-RowByRow"
+                  usesDispositions="true"
+                  validateExternalMetadata="False"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">archive_medication_drug_therapy_problems</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">true</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\MainContainer\Data Flow\ODD-RowByRow.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[destination_conn]"
+                      connectionManagerRefId="Package.ConnectionManagers[destination_conn]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="RedirectRow"
+                      hasSideEffects="true"
+                      name="ODD-BulkLoad_Error_ODD-RowByRow">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].Columns[id]"
+                          cachedDataType="i4"
+                          cachedName="id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].Columns[medication_drug_therapy_problem_id]"
+                          cachedDataType="i4"
+                          cachedName="medication_drug_therapy_problem_id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[medication_drug_therapy_problem_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[medication_drug_therapy_problem_id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].Columns[medication_id]"
+                          cachedDataType="i4"
+                          cachedName="medication_id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[medication_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[medication_id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].Columns[drug_therapy_problem_id]"
+                          cachedDataType="i4"
+                          cachedName="drug_therapy_problem_id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[drug_therapy_problem_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[drug_therapy_problem_id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].Columns[mongo_uuid]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="mongo_uuid"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[mongo_uuid]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[mongo_uuid]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].Columns[mongo_export_path]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="mongo_export_path"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[mongo_export_path]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[mongo_export_path]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].Columns[cde_dtp_id]"
+                          cachedDataType="i4"
+                          cachedName="cde_dtp_id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[cde_dtp_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[cde_dtp_id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].Columns[pmd_cde_id]"
+                          cachedDataType="i4"
+                          cachedName="pmd_cde_id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[pmd_cde_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[pmd_cde_id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].Columns[cref_evaluation_id]"
+                          cachedDataType="i4"
+                          cachedName="cref_evaluation_id"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[cref_evaluation_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[cref_evaluation_id]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].Columns[created_at]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="created_at"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[created_at]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[created_at]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].Columns[updated_at]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="updated_at"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[updated_at]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[updated_at]" />
+                        <inputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].Columns[hidden_at]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="hidden_at"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[hidden_at]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[hidden_at]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[id]"
+                          dataType="i4"
+                          name="id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[medication_drug_therapy_problem_id]"
+                          dataType="i4"
+                          name="medication_drug_therapy_problem_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[medication_id]"
+                          dataType="i4"
+                          name="medication_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[drug_therapy_problem_id]"
+                          dataType="i4"
+                          name="drug_therapy_problem_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[mongo_uuid]"
+                          dataType="wstr"
+                          length="255"
+                          name="mongo_uuid" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[mongo_export_path]"
+                          dataType="wstr"
+                          length="255"
+                          name="mongo_export_path" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[cde_dtp_id]"
+                          dataType="i4"
+                          name="cde_dtp_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[pmd_cde_id]"
+                          dataType="i4"
+                          name="pmd_cde_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[cref_evaluation_id]"
+                          dataType="i4"
+                          name="cref_evaluation_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[created_at]"
+                          dataType="dbTimeStamp"
+                          name="created_at" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[updated_at]"
+                          dataType="dbTimeStamp"
+                          name="updated_at" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow].ExternalColumns[hidden_at]"
+                          dataType="dbTimeStamp"
+                          name="hidden_at" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\MainContainer\Data Flow\ODD-RowByRow.Outputs[Error]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Error"
+                      synchronousInputId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Outputs[Error].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\ODD-RowByRow.Outputs[Error].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\ODD-RowByRow.Outputs[Error].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\ODD-RowByRow.Outputs[Error].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\MainContainer\Data Flow\Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  name="Source"
+                  usesDispositions="true"
+                  validateExternalMetadata="False"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable">User::ExpressionSelectData</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\MainContainer\Data Flow\Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[source_conn]"
+                      connectionManagerRefId="Package.ConnectionManagers[source_conn]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\MainContainer\Data Flow\Source.Outputs[Output]"
+                      name="Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[id]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[id]"
+                          name="id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[medication_drug_therapy_problem_id]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[medication_drug_therapy_problem_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[medication_drug_therapy_problem_id]"
+                          name="medication_drug_therapy_problem_id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[medication_id]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[medication_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[medication_id]"
+                          name="medication_id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[drug_therapy_problem_id]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[drug_therapy_problem_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[drug_therapy_problem_id]"
+                          name="drug_therapy_problem_id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[mongo_uuid]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[mongo_uuid]"
+                          length="255"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[mongo_uuid]"
+                          name="mongo_uuid"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[mongo_export_path]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[mongo_export_path]"
+                          length="255"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[mongo_export_path]"
+                          name="mongo_export_path"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[cde_dtp_id]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[cde_dtp_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[cde_dtp_id]"
+                          name="cde_dtp_id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[pmd_cde_id]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[pmd_cde_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[pmd_cde_id]"
+                          name="pmd_cde_id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[cref_evaluation_id]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[cref_evaluation_id]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[cref_evaluation_id]"
+                          name="cref_evaluation_id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[created_at]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[created_at]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[created_at]"
+                          name="created_at"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[updated_at]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[updated_at]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[updated_at]"
+                          name="updated_at"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[hidden_at]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[hidden_at]"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Output].Columns[hidden_at]"
+                          name="hidden_at"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[id]"
+                          dataType="i4"
+                          name="id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[medication_drug_therapy_problem_id]"
+                          dataType="i4"
+                          name="medication_drug_therapy_problem_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[medication_id]"
+                          dataType="i4"
+                          name="medication_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[drug_therapy_problem_id]"
+                          dataType="i4"
+                          name="drug_therapy_problem_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[mongo_uuid]"
+                          dataType="wstr"
+                          length="255"
+                          name="mongo_uuid" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[mongo_export_path]"
+                          dataType="wstr"
+                          length="255"
+                          name="mongo_export_path" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[cde_dtp_id]"
+                          dataType="i4"
+                          name="cde_dtp_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[pmd_cde_id]"
+                          dataType="i4"
+                          name="pmd_cde_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[cref_evaluation_id]"
+                          dataType="i4"
+                          name="cref_evaluation_id" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[created_at]"
+                          dataType="dbTimeStamp"
+                          name="created_at" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[updated_at]"
+                          dataType="dbTimeStamp"
+                          name="updated_at" />
+                        <externalMetadataColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Output].ExternalColumns[hidden_at]"
+                          dataType="dbTimeStamp"
+                          name="hidden_at" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\MainContainer\Data Flow\Source.Outputs[Error]"
+                      isErrorOut="true"
+                      name="Error">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[id]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[id]"
+                          name="id" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[medication_drug_therapy_problem_id]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[medication_drug_therapy_problem_id]"
+                          name="medication_drug_therapy_problem_id" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[medication_id]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[medication_id]"
+                          name="medication_id" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[drug_therapy_problem_id]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[drug_therapy_problem_id]"
+                          name="drug_therapy_problem_id" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[mongo_uuid]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[mongo_uuid]"
+                          name="mongo_uuid" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[mongo_export_path]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[mongo_export_path]"
+                          name="mongo_export_path" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[cde_dtp_id]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[cde_dtp_id]"
+                          name="cde_dtp_id" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[pmd_cde_id]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[pmd_cde_id]"
+                          name="pmd_cde_id" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[cref_evaluation_id]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[cref_evaluation_id]"
+                          name="cref_evaluation_id" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[created_at]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[created_at]"
+                          name="created_at" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[updated_at]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[updated_at]"
+                          name="updated_at" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[hidden_at]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[hidden_at]"
+                          name="hidden_at" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\MainContainer\Data Flow\Source.Outputs[Error].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\MainContainer\Data Flow.Paths[ODD-BulkLoad_Error_ODD-RowByRow]"
+                  endId="Package\MainContainer\Data Flow\ODD-RowByRow.Inputs[ODD-BulkLoad_Error_ODD-RowByRow]"
+                  name="ODD-BulkLoad_Error_ODD-RowByRow"
+                  startId="Package\MainContainer\Data Flow\ODD-BulkLoad.Outputs[Error]" />
+                <path
+                  refId="Package\MainContainer\Data Flow.Paths[Source_Output_ODD-BulkLoad]"
+                  endId="Package\MainContainer\Data Flow\ODD-BulkLoad.Inputs[Source_Output_ODD-BulkLoad]"
+                  name="Source_Output_ODD-BulkLoad"
+                  startId="Package\MainContainer\Data Flow\Source.Outputs[Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\MainContainer\Determine Rows"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:DTSID="{BEE70B34-7A38-478C-ADDA-FE8E129736F7}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Determine Rows"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{A29206FB-1424-4D3A-A9D2-8FD5ACE21C44}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::ExpressionDetermineRows" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\MainContainer\Get Destination Row Count"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:DTSID="{5F5D53D9-C65B-47F5-8F73-E90BACDACF7E}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Destination Row Count"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{5D46F533-C05E-4F0C-A6E1-7218BC357B33}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::QueryCountDestinationRows"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="RowCnt"
+                SQLTask:DtsVariableName="User::RCDestination" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\MainContainer\Get Source Row Count"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:DTSID="{E14DA8E9-3259-43F2-BA67-1EACCEF24098}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Source Row Count"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{A29206FB-1424-4D3A-A9D2-8FD5ACE21C44}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::ExpressionSelectCount"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="RowCnt"
+                SQLTask:DtsVariableName="User::RCSource" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\MainContainer\SQL-GetExecutionDetails-"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:DTSID="{88674DE7-6099-42F5-B9BE-A77866EF59FE}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL-GetExecutionDetails-"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{51F6CE25-3C10-4111-BB15-2A29B9BBACAA}"
+              SQLTask:SqlStatementSource="exec Runtime_GetMirrorTableExecutionParams ?, ?;"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="MIRROR_ID"
+                SQLTask:DtsVariableName="User::MirrorId" />
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="MIRROR_EXECUTION_ID"
+                SQLTask:DtsVariableName="User::MirrorExecutionId" />
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="MIRROR_TABLE_ID"
+                SQLTask:DtsVariableName="User::MirrorTableId" />
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="MIRROR_TABLE_EXECUTION_ID"
+                SQLTask:DtsVariableName="User::TableExecutionIdLocal" />
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="WORKER_ID"
+                SQLTask:DtsVariableName="User::WorkerId" />
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="SRC_CONNECTION"
+                SQLTask:DtsVariableName="User::SrcConnectionStringLocal" />
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="DST_CONNECTION"
+                SQLTask:DtsVariableName="User::DstConnectionStringLocal" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::MirrorKey"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="0" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::SourceTableLocal"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="0" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\MainContainer\Store Destination Row Count"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:DTSID="{99E4418A-42ED-4A88-ACCF-06054A654FED}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Store Destination Row Count"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{51F6CE25-3C10-4111-BB15-2A29B9BBACAA}"
+              SQLTask:SqlStatementSource="exec Runtime_UpdatetMirrorTableExecutionDestinationRowCnt ?, ?;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableExecutionIdLocal"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="20"
+                SQLTask:ParameterSize="0" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::RCDestination"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="20"
+                SQLTask:ParameterSize="0" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\MainContainer\Store Source Row Count"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:DTSID="{5F0D1008-1BB0-451C-9E38-0C2938F2DB73}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Store Source Row Count"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{51F6CE25-3C10-4111-BB15-2A29B9BBACAA}"
+              SQLTask:SqlStatementSource="exec Runtime_UpdatetMirrorTableExecutionSourceRowCnt ?, ?;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableExecutionIdLocal"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="20"
+                SQLTask:ParameterSize="0" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::RCSource"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="20"
+                SQLTask:ParameterSize="0" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\MainContainer\Truncate Destination Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:DTSID="{1DB8E7E3-1146-4A03-91EE-C0826AD288CE}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Destination Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{5D46F533-C05E-4F0C-A6E1-7218BC357B33}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::QueryTruncateDestination" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\MainContainer.PrecedenceConstraints[Constraint_Clear Determined Rows 1_To_Determine Rows]"
+          DTS:CreationName=""
+          DTS:DTSID="{DBEF7FC5-45FD-46A0-BFED-F774471F973B}"
+          DTS:From="Package\MainContainer\Clear Determined Rows 1"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Clear Determined Rows 1_To_Determine Rows"
+          DTS:To="Package\MainContainer\Determine Rows" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\MainContainer.PrecedenceConstraints[Constraint_Data Flow_To_Get Destination Row Count]"
+          DTS:CreationName=""
+          DTS:DTSID="{2DB64193-15A9-483C-A629-584F134FB007}"
+          DTS:From="Package\MainContainer\Data Flow"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Data Flow_To_Get Destination Row Count"
+          DTS:To="Package\MainContainer\Get Destination Row Count" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\MainContainer.PrecedenceConstraints[Constraint_Determine Rows_To_Get Source Row Count]"
+          DTS:CreationName=""
+          DTS:DTSID="{7FCE907A-B964-4DBF-B82D-3CDE89A54F9B}"
+          DTS:From="Package\MainContainer\Determine Rows"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Determine Rows_To_Get Source Row Count"
+          DTS:To="Package\MainContainer\Get Source Row Count" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\MainContainer.PrecedenceConstraints[Constraint_Get Destination Row Count_To_Store Destination Row Count]"
+          DTS:CreationName=""
+          DTS:DTSID="{EB0AA6E7-9D9E-4DC5-9416-A4859D10C3B9}"
+          DTS:From="Package\MainContainer\Get Destination Row Count"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Get Destination Row Count_To_Store Destination Row Count"
+          DTS:To="Package\MainContainer\Store Destination Row Count" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\MainContainer.PrecedenceConstraints[Constraint_Get Source Row Count_To_Store Source Row Count]"
+          DTS:CreationName=""
+          DTS:DTSID="{26FFB980-A395-4401-8C91-F53181D82344}"
+          DTS:From="Package\MainContainer\Get Source Row Count"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Get Source Row Count_To_Store Source Row Count"
+          DTS:To="Package\MainContainer\Store Source Row Count" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\MainContainer.PrecedenceConstraints[Constraint_SQL-GetExecutionDetails-_To_Clear Determined Rows 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{2AB59138-A095-4097-AC09-B2176FC05FE6}"
+          DTS:From="Package\MainContainer\SQL-GetExecutionDetails-"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_SQL-GetExecutionDetails-_To_Clear Determined Rows 1"
+          DTS:To="Package\MainContainer\Clear Determined Rows 1" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\MainContainer.PrecedenceConstraints[Constraint_Store Destination Row Count_To_Clear Determined Rows 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{BFD7B757-D4A4-4FF1-A8C0-44F0211123FB}"
+          DTS:From="Package\MainContainer\Store Destination Row Count"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Store Destination Row Count_To_Clear Determined Rows 2"
+          DTS:To="Package\MainContainer\Clear Determined Rows 2" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\MainContainer.PrecedenceConstraints[Constraint_Store Source Row Count_To_Truncate Destination Table]"
+          DTS:CreationName=""
+          DTS:DTSID="{67B71F86-9E1E-46BD-98BD-30E8E4918E91}"
+          DTS:From="Package\MainContainer\Store Source Row Count"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Store Source Row Count_To_Truncate Destination Table"
+          DTS:To="Package\MainContainer\Truncate Destination Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\MainContainer.PrecedenceConstraints[Constraint_Truncate Destination Table_To_Data Flow]"
+          DTS:CreationName=""
+          DTS:DTSID="{F5909B6B-B9DC-4838-AF00-E513CAE9932A}"
+          DTS:From="Package\MainContainer\Truncate Destination Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint_Truncate Destination Table_To_Data Flow"
+          DTS:To="Package\MainContainer\Data Flow" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="198.666666666667,42.6666666666667"
+          Id="Package\MainContainer\Clear Determined Rows 1"
+          TopLeft="13.5,108.166666666666" />
+        <NodeLayout
+          Size="198.666666666667,42.6666666666667"
+          Id="Package\MainContainer\Clear Determined Rows 2"
+          TopLeft="13.5000000000001,929.5" />
+        <NodeLayout
+          Size="126.666666666667,42.6666666666667"
+          Id="Package\MainContainer\Data Flow"
+          TopLeft="49.5000000000001,621.499999999999" />
+        <NodeLayout
+          Size="157.333333333334,42.6666666666667"
+          Id="Package\MainContainer\Determine Rows"
+          TopLeft="34.1666666666667,210.833333333333" />
+        <NodeLayout
+          Size="206.666666666667,42.6666666666667"
+          Id="Package\MainContainer\Get Destination Row Count"
+          TopLeft="9.5000000000001,724.166666666666" />
+        <NodeLayout
+          Size="186.666666666667,42.6666666666667"
+          Id="Package\MainContainer\Get Source Row Count"
+          TopLeft="19.5,313.499999999999" />
+        <NodeLayout
+          Size="200,42.6666666666667"
+          Id="Package\MainContainer\SQL-GetExecutionDetails-"
+          TopLeft="12.8333333333333,5.49999999999993" />
+        <NodeLayout
+          Size="214.666666666667,42.6666666666667"
+          Id="Package\MainContainer\Store Destination Row Count"
+          TopLeft="5.50000000000011,826.833333333333" />
+        <NodeLayout
+          Size="194.666666666667,42.6666666666667"
+          Id="Package\MainContainer\Store Source Row Count"
+          TopLeft="15.5000000000001,416.166666666666" />
+        <NodeLayout
+          Size="206.666666666667,42.6666666666667"
+          Id="Package\MainContainer\Truncate Destination Table"
+          TopLeft="9.50000000000007,518.833333333333" />
+        <EdgeLayout
+          Id="Package\MainContainer.PrecedenceConstraints[Constraint_SQL-GetExecutionDetails-_To_Clear Determined Rows 1]"
+          TopLeft="112.833333333333,48.1666666666666">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\MainContainer.PrecedenceConstraints[Constraint_Clear Determined Rows 1_To_Determine Rows]"
+          TopLeft="112.833333333333,150.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999998"
+              Start="0,0"
+              End="0,52.4999999999998">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999998" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\MainContainer.PrecedenceConstraints[Constraint_Determine Rows_To_Get Source Row Count]"
+          TopLeft="112.833333333333,253.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\MainContainer.PrecedenceConstraints[Constraint_Get Source Row Count_To_Store Source Row Count]"
+          TopLeft="112.833333333333,356.166666666666">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999998"
+              Start="0,0"
+              End="0,52.4999999999998">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999998" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\MainContainer.PrecedenceConstraints[Constraint_Store Source Row Count_To_Truncate Destination Table]"
+          TopLeft="112.833333333333,458.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\MainContainer.PrecedenceConstraints[Constraint_Truncate Destination Table_To_Data Flow]"
+          TopLeft="112.833333333333,561.499999999999">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\MainContainer.PrecedenceConstraints[Constraint_Data Flow_To_Get Destination Row Count]"
+          TopLeft="112.833333333333,664.166666666666">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\MainContainer.PrecedenceConstraints[Constraint_Get Destination Row Count_To_Store Destination Row Count]"
+          TopLeft="112.833333333333,766.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\MainContainer.PrecedenceConstraints[Constraint_Store Destination Row Count_To_Clear Determined Rows 2]"
+          TopLeft="112.833333333333,869.499999999999">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="225.333333333334,1027.33333333334"
+          Size="225.333333333334,1070"
+          Id="Package\MainContainer"
+          TopLeft="5.50000000000014,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

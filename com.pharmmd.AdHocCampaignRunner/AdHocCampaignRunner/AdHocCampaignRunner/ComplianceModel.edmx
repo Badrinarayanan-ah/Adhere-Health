@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ComplianceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdHocLog">
+          <Key>
+            <PropertyRef Name="rowId" />
+          </Key>
+          <Property Name="rowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <Function Name="AdHoc_Rollup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ODSBase">
+          <Parameter Name="pmdClientId" Type="int" Mode="In" />
+          <Parameter Name="flavor" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="AdHoc_RunCampaign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ODSBase">
+          <Parameter Name="campaign" Type="varchar" Mode="In" />
+          <Parameter Name="isNewCampaignCluster" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="AdHocRollupCheck" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ODSBase" />
+        <Function Name="GetAdHocLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ODSBase" />
+        <EntityContainer Name="ComplianceModelStoreContainer">
+          <EntitySet Name="AdHocLog" EntityType="Self.AdHocLog" Schema="ODSBase" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ComplianceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ComplianceEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="AdHoc_Rollup">
+            <Parameter Name="pmdClientId" Mode="In" Type="Int32" />
+            <Parameter Name="flavor" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AdHoc_RunCampaign">
+            <Parameter Name="campaign" Mode="In" Type="String" />
+            <Parameter Name="isNewCampaignCluster" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="GetAdHocLog" ReturnType="Collection(ComplianceModel.GetAdHocLog_Result)" />
+          <FunctionImport Name="AdHocRollupCheck" />
+          <EntitySet Name="AdHocLogs" EntityType="ComplianceModel.AdHocLog" />
+        </EntityContainer>
+        <ComplexType Name="GetAdHocLog_Result">
+          <Property Type="Int32" Name="rowId" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="1000" />
+        </ComplexType>
+        <EntityType Name="AdHocLog">
+          <Key>
+            <PropertyRef Name="rowId" />
+          </Key>
+          <Property Name="rowId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ComplianceModelStoreContainer" CdmEntityContainer="ComplianceEntities" >
+          <FunctionImportMapping FunctionImportName="AdHoc_Rollup" FunctionName="ComplianceModel.Store.AdHoc_Rollup" />
+          <FunctionImportMapping FunctionImportName="AdHoc_RunCampaign" FunctionName="ComplianceModel.Store.AdHoc_RunCampaign" />
+          <FunctionImportMapping FunctionImportName="GetAdHocLog" FunctionName="ComplianceModel.Store.GetAdHocLog">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ComplianceModel.GetAdHocLog_Result">
+                <ScalarProperty Name="rowId" ColumnName="rowId" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AdHocRollupCheck" FunctionName="ComplianceModel.Store.AdHocRollupCheck" />
+          <EntitySetMapping Name="AdHocLogs">
+            <EntityTypeMapping TypeName="ComplianceModel.AdHocLog">
+              <MappingFragment StoreEntitySet="AdHocLog">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="rowId" ColumnName="rowId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

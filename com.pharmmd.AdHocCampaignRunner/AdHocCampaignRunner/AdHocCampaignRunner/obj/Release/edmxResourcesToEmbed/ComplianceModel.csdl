@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ComplianceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ComplianceEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="AdHoc_Rollup">
+      <Parameter Name="pmdClientId" Mode="In" Type="Int32" />
+      <Parameter Name="flavor" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AdHoc_RunCampaign">
+      <Parameter Name="campaign" Mode="In" Type="String" />
+      <Parameter Name="isNewCampaignCluster" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="GetAdHocLog" ReturnType="Collection(ComplianceModel.GetAdHocLog_Result)" />
+    <FunctionImport Name="AdHocRollupCheck" />
+    <EntitySet Name="AdHocLogs" EntityType="ComplianceModel.AdHocLog" />
+  </EntityContainer>
+  <ComplexType Name="GetAdHocLog_Result">
+    <Property Type="Int32" Name="rowId" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="1000" />
+  </ComplexType>
+  <EntityType Name="AdHocLog">
+    <Key>
+      <PropertyRef Name="rowId" />
+    </Key>
+    <Property Name="rowId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

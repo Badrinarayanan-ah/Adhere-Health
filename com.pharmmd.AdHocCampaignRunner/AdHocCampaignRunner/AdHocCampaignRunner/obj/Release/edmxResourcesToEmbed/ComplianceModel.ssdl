@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ComplianceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AdHocLog">
+    <Key>
+      <PropertyRef Name="rowId" />
+    </Key>
+    <Property Name="rowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <Function Name="AdHoc_Rollup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ODSBase">
+    <Parameter Name="pmdClientId" Type="int" Mode="In" />
+    <Parameter Name="flavor" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="AdHoc_RunCampaign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ODSBase">
+    <Parameter Name="campaign" Type="varchar" Mode="In" />
+    <Parameter Name="isNewCampaignCluster" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="AdHocRollupCheck" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ODSBase" />
+  <Function Name="GetAdHocLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ODSBase" />
+  <EntityContainer Name="ComplianceModelStoreContainer">
+    <EntitySet Name="AdHocLog" EntityType="Self.AdHocLog" Schema="ODSBase" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

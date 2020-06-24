@@ -1,0 +1,1 @@
+﻿ping sqlops -n 10

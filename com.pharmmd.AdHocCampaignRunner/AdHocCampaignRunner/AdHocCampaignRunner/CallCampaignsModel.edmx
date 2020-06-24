@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CallCampaignsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="archiveAdHocCallList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="campaignName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="createAdHocCallList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="campaignName" Type="varchar" Mode="In" />
+          <Parameter Name="callListSessionId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getAdHocMostRecentSession" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="CallCampaignsModelStoreContainer" />
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CallCampaignsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CallCampaignsEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="archiveAdHocCallList">
+            <Parameter Name="campaignName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="createAdHocCallList">
+            <Parameter Name="campaignName" Mode="In" Type="String" />
+            <Parameter Name="callListSessionId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getAdHocMostRecentSession" ReturnType="Collection(CallCampaignsModel.getAdHocMostRecentSession_Result)" />
+        </EntityContainer>
+        <ComplexType Name="getAdHocMostRecentSession_Result">
+          <Property Type="String" Name="CampaignName" Nullable="true" MaxLength="75" />
+          <Property Type="Int32" Name="CallListSessionId" Nullable="false" />
+          <Property Type="Int32" Name="CampaignClusterId" Nullable="false" />
+          <Property Type="Int32" Name="PMDClientId" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CallCampaignsModelStoreContainer" CdmEntityContainer="CallCampaignsEntities" >
+          <FunctionImportMapping FunctionImportName="archiveAdHocCallList" FunctionName="CallCampaignsModel.Store.archiveAdHocCallList" />
+          <FunctionImportMapping FunctionImportName="createAdHocCallList" FunctionName="CallCampaignsModel.Store.createAdHocCallList" />
+          <FunctionImportMapping FunctionImportName="getAdHocMostRecentSession" FunctionName="CallCampaignsModel.Store.getAdHocMostRecentSession">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCampaignsModel.getAdHocMostRecentSession_Result">
+                <ScalarProperty Name="CampaignName" ColumnName="CampaignName" />
+                <ScalarProperty Name="CallListSessionId" ColumnName="CallListSessionId" />
+                <ScalarProperty Name="CampaignClusterId" ColumnName="CampaignClusterId" />
+                <ScalarProperty Name="PMDClientId" ColumnName="PMDClientId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
